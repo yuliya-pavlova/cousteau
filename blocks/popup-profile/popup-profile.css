@@ -1,0 +1,20 @@
+@import url(./__content/popup-profile__content.css);
+@import url(./__close/popup-profile__close.css);
+@import url(./__title/popup-profile__title.css);
+@import url(./__form/popup-profile__form.css);
+@import url(./__input/popup-profile__input.css);
+@import url(./__button/popup-profile__button.css);
+@import url(./_is-opened/popup-profile_is-opened.css);
+
+.popup-profile {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}

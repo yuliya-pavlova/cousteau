@@ -4,6 +4,12 @@ const popup = document.querySelector('.popup');
 const closeButton = document.querySelector('.popup__close');
 const form = document.forms.new;
 const sendButton = document.querySelector('.popup__button');
+const editButton = document.querySelector('.user-info__edit');
+const popupProfile = document.querySelector('.popup-profile');
+const closeButtonPopupProfile = document.querySelector('.popup-profile__close');
+const userName = document.querySelector('.user-info__name');
+const job = document.querySelector('.user-info__job');
+const formProfile = document.forms.profile;
 
 function createCard(name, link) {
     const template = `
@@ -44,6 +50,7 @@ function openForm() {
 }
 
 function closeForm() {
+    popupProfile.classList.remove('popup-profile_is-opened');
     popup.classList.remove('popup_is-opened');
     form.reset();
     sendButton.style.backgroundColor = null;
@@ -87,11 +94,31 @@ function likeHandler(event) {
     }
 }
 
+function editForm() {
+    popupProfile.classList.add('popup-profile_is-opened');
+    sendButton.setAttribute('disabled', true);
+
+    formProfile.elements.name.value = userName.textContent;
+    formProfile.elements.job.value = job.textContent;
+}
+
+function sendProfile() {
+    event.preventDefault();
+
+    userName.textContent = formProfile.elements.name.value;
+    job.textContent = formProfile.elements.job.value;
+    formProfile.reset();
+    closeForm();
+}
+
 openButton.addEventListener('click', openForm);
 closeButton.addEventListener('click', closeForm);
+closeButtonPopupProfile.addEventListener('click', closeForm);
 list.addEventListener('click', likeHandler);
 list.addEventListener('click', deleteCard);
 form.addEventListener('input', inputHandler);
 form.addEventListener('submit', sendForm);
+editButton.addEventListener('click', editForm);
+formProfile.addEventListener('submit', sendProfile);
 
 createPlaces();

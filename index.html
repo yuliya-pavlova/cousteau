@@ -18,6 +18,7 @@
         <div class="user-info__data">
           <h1 class="user-info__name">Jaques Causteau</h1>
           <p class="user-info__job">Sailor, Researcher</p>
+          <button class="user-info__edit">Edit</button>
         </div>
         <button class="button user-info__button">+</button>
       </div>
@@ -36,7 +37,19 @@
         </form>
       </div>
     </div>
+    <div class="popup-profile">
+      <div class="popup-profile__content">
+        <img src="./images/close.svg" alt="" class="popup-profile__close">
+        <h3 class="popup-profile__title">Редактировать профиль</h3>
+        <form class="popup-profile__form" name="profile">
+            <input type="text" name="name" class="popup-profile__input popup-profile__input_type_name" placeholder="Имя">
+            <input type="text" name="job" class="popup-profile__input popup-profile__input_type_link-url" placeholder="О себе">
+            <button type class="button popup-profile__button">Сохранить</button>
+        </form>
+      </div>
+    </div>
   </div>
+ </div>
 
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>

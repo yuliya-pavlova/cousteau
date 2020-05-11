@@ -1,0 +1,23 @@
+.user-info__edit {
+    font-size: 12px;
+    line-height: 15px;
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    display: block;
+    cursor: pointer;
+    margin-top: 28px;
+    width: 38px;
+    height: 18px;
+}
+
+.user-info__edit:focus {
+    outline-color: greenyellow;
+}
+
+@media screen and (max-width: 980px) {
+    .user-info__edit {
+        margin: 10px auto;
+    }
+  }
+  

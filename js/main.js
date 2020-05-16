@@ -137,21 +137,22 @@ function inputHandler(event) {
     const inputs = [...event.currentTarget.elements].filter(input => (input.type !== 'submit' && input.type !== 'button'));
 
     const currentInput = event.target;
-    console.log(currentInput.name);
-    const errorElem = currentInput.parentNode.querySelector(`#${currentInput.name}-error`);
-    checkInputValidity(currentInput, errorElem); 
 
-    if (inputs.every(checkInputValidity())) {
+    checkInputValidity(currentInput); 
+
+    if (inputs.every(checkInputValidity)) {
         submit.removeAttribute('disabled');
         submit.style.backgroundColor = '#000000';
         submit.style.color = '#FFFFFF';
     } else {
         submit.setAttribute('disabled', true);
-        submit.style.backgroundColor = null;
+        submit.style.backgroundColor = '#FFFFFF';
+        submit.style.color = 'rgba(0, 0, 0, .2)';
     }
 }
 
-function checkInputValidity(input, errorElem) {
+function checkInputValidity(input) {
+    let errorElem = input.parentNode.querySelector(`#${input.name}-error`);
     errorElem.textContent = '';
 
     if (input.value.length === 0) {
@@ -163,6 +164,8 @@ function checkInputValidity(input, errorElem) {
         errorElem.textContent = errorMessages.wrongLength;
         return false;
     }
+
+    return true;
 }
 
 

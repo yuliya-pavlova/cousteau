@@ -13,6 +13,13 @@ const formProfile = document.forms.profile;
 const popupImage = document.querySelector('.popup-image');
 const image = document.querySelector('.popup__image');
 const closeButtonPopupImg = document.querySelector('.popup-image__close');
+const MIN_STRING_LENGTH = 2;
+const MAX_STRING_LENGTH = 30;
+
+const errorMessages = {
+    empty: 'Это обязательное поле',
+    wrongLength: 'Должно быть от 2 до 30 символов'
+};
 
 function createCard(name, link) {
     const template = `
@@ -71,19 +78,6 @@ function sendForm() {
     closeForm();
 }
 
-function inputHandler() {
-    const name = event.currentTarget.elements.name;
-    const link = event.currentTarget.elements.link;
-
-    if (name.value.length === 0 || link.value.length === 0) {
-        sendButton.setAttribute('disabled', true);
-        sendButton.style.backgroundColor = null;
-    } else {
-        sendButton.removeAttribute('disabled');
-        sendButton.style.backgroundColor = '#ffdd2d';
-    }
-}
-
 function deleteCard(event) {
     if (event.target.classList.contains('place-card__delete-icon')) {
         const card = event.target.closest('.place-card');
@@ -126,16 +120,64 @@ function closeImage() {
     popupImage.classList.remove('popup-image_is-opened');
 }
 
+function inputHandler(event) {
+    // const name = event.currentTarget.elements.name;
+    // const link = event.currentTarget.elements.link;
+
+    // if (name.value.length === 0 || link.value.length === 0) {
+    //     sendButton.setAttribute('disabled', true);
+    //     sendButton.style.backgroundColor = null;
+    // } else {
+    //     sendButton.removeAttribute('disabled');
+    //     sendButton.style.backgroundColor = '#000000';
+    //     sendButton.style.color = '#FFFFFF';
+    // }
+
+    const submit = event.currentTarget.querySelector('.button');
+    const inputs = [...event.currentTarget.elements].filter(input => (input.type !== 'submit' && input.type !== 'button'));
+
+    const currentInput = event.target;
+    console.log(currentInput.name);
+    const errorElem = currentInput.parentNode.querySelector(`#${currentInput.name}-error`);
+    checkInputValidity(currentInput, errorElem); 
+
+    if (inputs.every(checkInputValidity())) {
+        submit.removeAttribute('disabled');
+        submit.style.backgroundColor = '#000000';
+        submit.style.color = '#FFFFFF';
+    } else {
+        submit.setAttribute('disabled', true);
+        submit.style.backgroundColor = null;
+    }
+}
+
+function checkInputValidity(input, errorElem) {
+    errorElem.textContent = '';
+
+    if (input.value.length === 0) {
+        errorElem.textContent = errorMessages.empty;
+        return false;
+    }
+
+    if (input.value.length < MIN_STRING_LENGTH || input.value.length > MAX_STRING_LENGTH) {
+        errorElem.textContent = errorMessages.wrongLength;
+        return false;
+    }
+}
+
+
 openButton.addEventListener('click', openForm);
 closeButton.addEventListener('click', closeForm);
 closeButtonPopupProfile.addEventListener('click', closeForm);
 list.addEventListener('click', likeHandler);
 list.addEventListener('click', deleteCard);
-form.addEventListener('input', inputHandler);
-form.addEventListener('submit', sendForm);
 editButton.addEventListener('click', editForm);
-formProfile.addEventListener('submit', sendProfile);
 list.addEventListener('click', showImage);
 closeButtonPopupImg.addEventListener('click', closeImage);
+
+form.addEventListener('input', inputHandler);
+form.addEventListener('submit', sendForm);
+formProfile.addEventListener('submit', sendProfile);
+formProfile.addEventListener('input', inputHandler);
 
 createPlaces();

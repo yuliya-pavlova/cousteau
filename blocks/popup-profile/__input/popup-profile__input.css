@@ -6,8 +6,8 @@
   font-size: 14px;
   line-height: 17px;
   box-sizing: border-box;
-  padding: 5px 6px 13px;
-  margin-bottom: 24px;
+  padding: 5px 6px;
+  margin-bottom: 5px;
 }
 
 .popup-profile__input:last-of-type {

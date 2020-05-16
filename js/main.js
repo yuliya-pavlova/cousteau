@@ -10,6 +10,9 @@ const closeButtonPopupProfile = document.querySelector('.popup-profile__close');
 const userName = document.querySelector('.user-info__name');
 const job = document.querySelector('.user-info__job');
 const formProfile = document.forms.profile;
+const popupImage = document.querySelector('.popup-image');
+const image = document.querySelector('.popup__image');
+const closeButtonPopupImg = document.querySelector('.popup-image__close');
 
 function createCard(name, link) {
     const template = `
@@ -111,6 +114,18 @@ function sendProfile() {
     closeForm();
 }
 
+function showImage() {
+    if (event.target.classList.contains('place-card__image')) {
+        console.log('Покажи картинку!');
+        popupImage.classList.add('popup-image_is-opened');
+        //image.src = event.target.style.backgroundImage.slice(5, -2);
+    }
+}
+
+function closeImage() {
+    popupImage.classList.remove('popup-image_is-opened');
+}
+
 openButton.addEventListener('click', openForm);
 closeButton.addEventListener('click', closeForm);
 closeButtonPopupProfile.addEventListener('click', closeForm);
@@ -120,5 +135,7 @@ form.addEventListener('input', inputHandler);
 form.addEventListener('submit', sendForm);
 editButton.addEventListener('click', editForm);
 formProfile.addEventListener('submit', sendProfile);
+list.addEventListener('click', showImage);
+closeButtonPopupImg.addEventListener('click', closeImage);
 
 createPlaces();

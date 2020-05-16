@@ -118,7 +118,7 @@ function showImage() {
     if (event.target.classList.contains('place-card__image')) {
         console.log('Покажи картинку!');
         popupImage.classList.add('popup-image_is-opened');
-        //image.src = event.target.style.backgroundImage.slice(5, -2);
+        image.src = event.target.style.backgroundImage.slice(5, -2);
     }
 }
 

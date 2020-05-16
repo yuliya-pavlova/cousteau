@@ -16,8 +16,6 @@
   }
 
   .popup__image {
-    position: fixed;
     max-width: 80vw;
     max-height: 80vh;
-    display: inline-block;
   }

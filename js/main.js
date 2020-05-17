@@ -6,6 +6,7 @@ const form = document.forms.new;
 const sendButton = document.querySelector('.popup__button');
 const editButton = document.querySelector('.user-info__edit');
 const popupProfile = document.querySelector('.popup-profile');
+const sendProfileButton = document.querySelector('.popup-profile__button');
 const closeButtonPopupProfile = document.querySelector('.popup-profile__close');
 const userName = document.querySelector('.user-info__name');
 const job = document.querySelector('.user-info__job');
@@ -15,10 +16,13 @@ const image = document.querySelector('.popup__image');
 const closeButtonPopupImg = document.querySelector('.popup-image__close');
 const MIN_STRING_LENGTH = 2;
 const MAX_STRING_LENGTH = 30;
+const regexpUrl = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+let errorMessage = '';
 
 const errorMessages = {
     empty: 'Это обязательное поле',
-    wrongLength: 'Должно быть от 2 до 30 символов'
+    wrongLength: 'Должно быть от 2 до 30 символов',
+    wrongUrl: 'Здесь должна быть ссылка'
 };
 
 function createCard(name, link) {
@@ -60,10 +64,15 @@ function openForm() {
 }
 
 function closeForm() {
+    const errors = [...event.target.parentNode.querySelectorAll('.error')];
+    errors.forEach(error => error.textContent = ''); 
+    form.reset();
+
     popupProfile.classList.remove('popup-profile_is-opened');
     popup.classList.remove('popup_is-opened');
-    form.reset();
-    sendButton.style.backgroundColor = null;
+
+    sendButton.style.backgroundColor = '#FFFFFF';
+    sendButton.style.color = 'rgba(0, 0, 0, .2)';
 }
 
 function sendForm() {
@@ -92,8 +101,11 @@ function likeHandler(event) {
 }
 
 function editForm() {
+    formProfile.reset();
     popupProfile.classList.add('popup-profile_is-opened');
-    sendButton.setAttribute('disabled', true);
+    sendProfileButton.setAttribute('disabled', true);
+    sendProfileButton.style.backgroundColor = '#FFFFFF';
+    sendProfileButton.style.color = 'rgba(0, 0, 0, .2)';
 
     formProfile.elements.name.value = userName.textContent;
     formProfile.elements.job.value = job.textContent;
@@ -110,7 +122,6 @@ function sendProfile() {
 
 function showImage() {
     if (event.target.classList.contains('place-card__image')) {
-        console.log('Покажи картинку!');
         popupImage.classList.add('popup-image_is-opened');
         image.src = event.target.style.backgroundImage.slice(5, -2);
     }
@@ -121,26 +132,13 @@ function closeImage() {
 }
 
 function inputHandler(event) {
-    // const name = event.currentTarget.elements.name;
-    // const link = event.currentTarget.elements.link;
-
-    // if (name.value.length === 0 || link.value.length === 0) {
-    //     sendButton.setAttribute('disabled', true);
-    //     sendButton.style.backgroundColor = null;
-    // } else {
-    //     sendButton.removeAttribute('disabled');
-    //     sendButton.style.backgroundColor = '#000000';
-    //     sendButton.style.color = '#FFFFFF';
-    // }
-
+    const currentInput = event.target;
     const submit = event.currentTarget.querySelector('.button');
     const inputs = [...event.currentTarget.elements].filter(input => (input.type !== 'submit' && input.type !== 'button'));
 
-    const currentInput = event.target;
+    checkInputValidity(currentInput); //проверяем изменяемый инпут
 
-    checkInputValidity(currentInput); 
-
-    if (inputs.every(checkInputValidity)) {
+    if (inputs.every(isValid)) {
         submit.removeAttribute('disabled');
         submit.style.backgroundColor = '#000000';
         submit.style.color = '#FFFFFF';
@@ -155,19 +153,37 @@ function checkInputValidity(input) {
     let errorElem = input.parentNode.querySelector(`#${input.name}-error`);
     errorElem.textContent = '';
 
-    if (input.value.length === 0) {
-        errorElem.textContent = errorMessages.empty;
-        return false;
+    if (!isValid(input)) {
+        errorElem.textContent = errorMessage;
     }
 
-    if (input.value.length < MIN_STRING_LENGTH || input.value.length > MAX_STRING_LENGTH) {
-        errorElem.textContent = errorMessages.wrongLength;
-        return false;
-    }
-
-    return true;
 }
 
+function isValid(input) {
+    errorMessage = '';
+
+    if (input.value.length === 0) {
+        errorMessage = errorMessages.empty;
+        return false;
+    }
+
+    if (input.getAttribute('name') !== 'link') {
+        //console.log(input.getAttribute(name));
+        if (input.value.length < MIN_STRING_LENGTH || input.value.length > MAX_STRING_LENGTH) {
+            errorMessage = errorMessages.wrongLength;
+            return false;
+        }
+    } 
+
+    if (input.getAttribute('name') == 'link') {
+        if (!input.value.match(regexpUrl)) {
+            errorMessage = errorMessages.wrongUrl;
+            return false;
+        }
+    }
+    
+    return true;
+}    
 
 openButton.addEventListener('click', openForm);
 closeButton.addEventListener('click', closeForm);
@@ -177,7 +193,6 @@ list.addEventListener('click', deleteCard);
 editButton.addEventListener('click', editForm);
 list.addEventListener('click', showImage);
 closeButtonPopupImg.addEventListener('click', closeImage);
-
 form.addEventListener('input', inputHandler);
 form.addEventListener('submit', sendForm);
 formProfile.addEventListener('submit', sendProfile);

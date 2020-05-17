@@ -64,15 +64,30 @@ function openForm() {
 }
 
 function closeForm() {
-    const errors = [...event.target.parentNode.querySelectorAll('.error')];
-    errors.forEach(error => error.textContent = ''); 
     form.reset();
-
-    popupProfile.classList.remove('popup-profile_is-opened');
     popup.classList.remove('popup_is-opened');
+    deleteErrors();
 
+    sendButton.setAttribute('disabled', true);
     sendButton.style.backgroundColor = '#FFFFFF';
     sendButton.style.color = 'rgba(0, 0, 0, .2)';
+    
+}
+
+function deleteErrors() {
+    const errors = [...event.target.parentNode.querySelectorAll('.error')];
+    errors.forEach(error => error.textContent = ''); 
+}
+
+
+function closeProfile() {
+    formProfile.reset();
+    popupProfile.classList.remove('popup-profile_is-opened');
+    deleteErrors();
+
+    sendProfileButton.setAttribute('disabled', true);
+    sendProfileButton.style.backgroundColor = '#FFFFFF';
+    sendProfileButton.style.color = 'rgba(0, 0, 0, .2)';
 }
 
 function sendForm() {
@@ -83,7 +98,6 @@ function sendForm() {
 
     const newPlace = createCard(name.value, link.value);
     addPlaceToList(newPlace);
-    form.reset();
     closeForm();
 }
 
@@ -102,10 +116,9 @@ function likeHandler(event) {
 
 function editForm() {
     formProfile.reset();
-    popupProfile.classList.add('popup-profile_is-opened');
     sendProfileButton.setAttribute('disabled', true);
-    sendProfileButton.style.backgroundColor = '#FFFFFF';
-    sendProfileButton.style.color = 'rgba(0, 0, 0, .2)';
+    sendProfileButton.style.cursor = 'default';
+    popupProfile.classList.add('popup-profile_is-opened');
 
     formProfile.elements.name.value = userName.textContent;
     formProfile.elements.job.value = job.textContent;
@@ -116,8 +129,7 @@ function sendProfile() {
 
     userName.textContent = formProfile.elements.name.value;
     job.textContent = formProfile.elements.job.value;
-    formProfile.reset();
-    closeForm();
+    closeProfile()
 }
 
 function showImage() {
@@ -136,14 +148,16 @@ function inputHandler(event) {
     const submit = event.currentTarget.querySelector('.button');
     const inputs = [...event.currentTarget.elements].filter(input => (input.type !== 'submit' && input.type !== 'button'));
 
-    checkInputValidity(currentInput); //проверяем изменяемый инпут
+    checkInputValidity(currentInput);
 
     if (inputs.every(isValid)) {
         submit.removeAttribute('disabled');
         submit.style.backgroundColor = '#000000';
         submit.style.color = '#FFFFFF';
+        submit.style.cursor = '';
     } else {
         submit.setAttribute('disabled', true);
+        submit.style.cursor = 'default';
         submit.style.backgroundColor = '#FFFFFF';
         submit.style.color = 'rgba(0, 0, 0, .2)';
     }
@@ -155,8 +169,12 @@ function checkInputValidity(input) {
 
     if (!isValid(input)) {
         errorElem.textContent = errorMessage;
+        input.style.marginBottom = '0';
+        errorElem.style.marginBottom = '24px';
+    } else {
+        input.style.marginBottom = '';
+        errorElem.style.marginBottom = '';
     }
-
 }
 
 function isValid(input) {
@@ -168,7 +186,6 @@ function isValid(input) {
     }
 
     if (input.getAttribute('name') !== 'link') {
-        //console.log(input.getAttribute(name));
         if (input.value.length < MIN_STRING_LENGTH || input.value.length > MAX_STRING_LENGTH) {
             errorMessage = errorMessages.wrongLength;
             return false;
@@ -186,11 +203,13 @@ function isValid(input) {
 }    
 
 openButton.addEventListener('click', openForm);
+editButton.addEventListener('click', editForm);
+
 closeButton.addEventListener('click', closeForm);
-closeButtonPopupProfile.addEventListener('click', closeForm);
+closeButtonPopupProfile.addEventListener('click', closeProfile);
+
 list.addEventListener('click', likeHandler);
 list.addEventListener('click', deleteCard);
-editButton.addEventListener('click', editForm);
 list.addEventListener('click', showImage);
 closeButtonPopupImg.addEventListener('click', closeImage);
 form.addEventListener('input', inputHandler);

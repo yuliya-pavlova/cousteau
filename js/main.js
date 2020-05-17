@@ -205,10 +205,8 @@ function isValid(input) {
 
 openButton.addEventListener('click', openForm);
 editButton.addEventListener('click', editForm);
-
 closeButton.addEventListener('click', closeForm);
 closeButtonPopupProfile.addEventListener('click', closeProfile);
-
 list.addEventListener('click', likeHandler);
 list.addEventListener('click', deleteCard);
 list.addEventListener('click', showImage);

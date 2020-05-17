@@ -61,6 +61,7 @@ function createPlaces() {
 function openForm() {
     popup.classList.add('popup_is-opened');
     sendButton.setAttribute('disabled', true);
+    sendButton.style.cursor = 'default';
 }
 
 function closeForm() {

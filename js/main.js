@@ -72,12 +72,12 @@ function closeForm() {
     sendButton.setAttribute('disabled', true);
     sendButton.style.backgroundColor = '#FFFFFF';
     sendButton.style.color = 'rgba(0, 0, 0, .2)';
-    
+
 }
 
 function deleteErrors() {
     const errors = [...event.target.parentNode.querySelectorAll('.error')];
-    errors.forEach(error => error.textContent = ''); 
+    errors.forEach(error => error.textContent = '');
 }
 
 
@@ -87,6 +87,7 @@ function closeProfile() {
     deleteErrors();
 
     sendProfileButton.setAttribute('disabled', true);
+
     sendProfileButton.style.backgroundColor = '#FFFFFF';
     sendProfileButton.style.color = 'rgba(0, 0, 0, .2)';
 }
@@ -105,6 +106,9 @@ function sendForm() {
 function deleteCard(event) {
     if (event.target.classList.contains('place-card__delete-icon')) {
         const card = event.target.closest('.place-card');
+    /*REVIEW. Нужно лучше. Нужно избавиться в функции deleteCard от глобальной переменной list, сделать её независящей от конкретной размётки.
+     К 8-му заданию это обязательно надо сделать, так как в нём это будет обязательным требованием.
+    */
         list.removeChild(card);
     }
 }
@@ -153,6 +157,9 @@ function inputHandler(event) {
 
     if (inputs.every(isValid)) {
         submit.removeAttribute('disabled');
+    /*REVIEW. Нужно лучше. Не следует использовать атрибут style элементов, где можно обойтись и без него. Это идёт вразрез с системой
+    именования классов БЭМ и поэтому может затруднить расширение и сопровождение проекта, так как атрибут стиль имеет более высокий приоритет
+    чем классы. Менять стили элементов надо только в файлах .CSS, задавая элементам нужные модификаторы по системе БЭМ. */
         submit.style.backgroundColor = '#000000';
         submit.style.color = '#FFFFFF';
         submit.style.cursor = '';
@@ -164,6 +171,9 @@ function inputHandler(event) {
     }
 }
 
+/*REVIEW. Нужно лучше. Не нужно задавать переменным, или параметрам, имена input, submit. Это может ввести в заблуждение сопровождающего проект.
+Надо inputElement, submitElement, чтобы сразу было ясно, что это такое. Во многих инструкциях по написанию кода js требуется обязательно вводить в
+имя переменной, хранящей DOM-элемент, окончание Element. */
 function checkInputValidity(input) {
     let errorElem = input.parentNode.querySelector(`#${input.name}-error`);
     errorElem.textContent = '';
@@ -185,13 +195,17 @@ function isValid(input) {
         errorMessage = errorMessages.empty;
         return false;
     }
-
+/*REVIEW. Нужно лучше. При программировании надо стремиться делать свои функции универсальными, независящими от конкретных исходных данных проекта
+(как в алгебре - алгебраическая формула не зависит от конкретных чисел, которые в неё подставляют). В данном случае лучше не использовать название
+поля 'link', которое может быть любым и может меняться. Нужно полю ссылки задать тип 'url' и проверять какой у поля тип. К 8-му заданию это
+обязательно надо сделать, так как в нём грубое нарушение принципов ООП будет недопустимо.
+ */
     if (input.getAttribute('name') !== 'link') {
         if (input.value.length < MIN_STRING_LENGTH || input.value.length > MAX_STRING_LENGTH) {
             errorMessage = errorMessages.wrongLength;
             return false;
         }
-    } 
+    }
 
     if (input.getAttribute('name') == 'link') {
         if (!input.value.match(regexpUrl)) {
@@ -199,9 +213,9 @@ function isValid(input) {
             return false;
         }
     }
-    
+
     return true;
-}    
+}
 
 openButton.addEventListener('click', openForm);
 editButton.addEventListener('click', editForm);
@@ -217,3 +231,43 @@ formProfile.addEventListener('submit', sendProfile);
 formProfile.addEventListener('input', inputHandler);
 
 createPlaces();
+
+
+
+/*REVIEW. Резюме.
+
+Хорошая работа.
+
+Весь функционал, требуемый по заданию работает. Сделано дополнительное задание по валидации формы карточки
+
+Соблюдён принцип единственной ответственности функции createCard - она отвечает только за создание элемента карточки,
+добавление его к общему списку происходит в другой функции.
+Там же предотвращена угроза компьютерной безопасности, так как переменные name и link, в которых могут содержаться вредоносные скрипты
+вводятся в свойства DOM-элементов как текст, а не как размётка.
+О компьютерной безопасности и функции insertAdjacentElement  и свойстве innerHtml можно прочитать здесь
+https://developer.mozilla.org/ru/docs/Web/API/Element/insertAdjacentElement
+и здесь https://developer.mozilla.org/ru/docs/Web/API/Element/innerHTML.
+
+
+Что надо улучшить.
+
+1. Нужно избавиться в функции deleteCard от глобальной переменной list, сделать её независящей от конкретной размётки
+(подробности в коде deleteCard ).
+
+2. Не следует использовать атрибут style элементов, где можно обойтись и без него (подробности в коде inputHandler).
+
+3. Не нужно задавать переменным, или параметрам, имена input, submit. Надо inputElement, submitElement (подробности
+в коде checkInputValidity).
+
+4. Не надо использовать название поля 'link'. Нужно полю ссылки задать тип 'url' и проверять какой у поля тип (подробности в коде isValid).
+
+5. По правилам написания кода js требуется, чтобы вызов функции, в каком бы стиле она ни создавалась, происходил в коде после её объявления.
+Нужно проверить правильность порядка объявления и вызова всех функций в коде.
+
+Практически все замечания из "Можно лучше" надо исправить к 8-му заданию, так как там эти требования будут обязательными.
+
+Задание принято.
+
+Желаю дальнейших успехов в обучении!
+
+*/

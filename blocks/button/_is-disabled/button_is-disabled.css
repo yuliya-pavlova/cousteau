@@ -1,0 +1,5 @@
+.button.button_is-disabled {
+    cursor: default;
+    color: rgba(0, 0, 0, .2);
+    background-color: rgb(255, 255, 255);
+}

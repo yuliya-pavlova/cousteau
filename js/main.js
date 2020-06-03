@@ -70,8 +70,10 @@ function closeForm() {
     deleteErrors();
 
     sendButton.setAttribute('disabled', true);
-    sendButton.style.backgroundColor = '#FFFFFF';
-    sendButton.style.color = 'rgba(0, 0, 0, .2)';
+    sendButton.classList.add('button_is-disabled');
+    sendButton.classList.remove('button_is-enabled');
+    // sendButton.style.backgroundColor = '#FFFFFF';
+    // sendButton.style.color = 'rgba(0, 0, 0, .2)';
 
 }
 
@@ -87,9 +89,11 @@ function closeProfile() {
     deleteErrors();
 
     sendProfileButton.setAttribute('disabled', true);
+    sendProfileButton.classList.add('button_is-disabled');
+    sendProfileButton.classList.remove('button_is-enabled');
 
-    sendProfileButton.style.backgroundColor = '#FFFFFF';
-    sendProfileButton.style.color = 'rgba(0, 0, 0, .2)';
+    // sendProfileButton.style.backgroundColor = '#FFFFFF';
+    // sendProfileButton.style.color = 'rgba(0, 0, 0, .2)';
 }
 
 function sendForm() {
@@ -150,48 +154,40 @@ function closeImage() {
 
 function inputHandler(event) {
     const currentInput = event.target;
-    const submit = event.currentTarget.querySelector('.button');
+    const submitElement = event.currentTarget.querySelector('.button');
     const inputs = [...event.currentTarget.elements].filter(input => (input.type !== 'submit' && input.type !== 'button'));
 
     checkInputValidity(currentInput);
 
     if (inputs.every(isValid)) {
-        submit.removeAttribute('disabled');
-    /*REVIEW. Нужно лучше. Не следует использовать атрибут style элементов, где можно обойтись и без него. Это идёт вразрез с системой
-    именования классов БЭМ и поэтому может затруднить расширение и сопровождение проекта, так как атрибут стиль имеет более высокий приоритет
-    чем классы. Менять стили элементов надо только в файлах .CSS, задавая элементам нужные модификаторы по системе БЭМ. */
-        submit.style.backgroundColor = '#000000';
-        submit.style.color = '#FFFFFF';
-        submit.style.cursor = '';
+        submitElement.removeAttribute('disabled');
+        submitElement.classList.remove('button_is-disabled');
+        submitElement.classList.add('button_is-enabled');
     } else {
-        submit.setAttribute('disabled', true);
-        submit.style.cursor = 'default';
-        submit.style.backgroundColor = '#FFFFFF';
-        submit.style.color = 'rgba(0, 0, 0, .2)';
+        submitElement.setAttribute('disabled', true);
+        submitElement.classList.add('button_is-disabled');
+        submitElement.classList.remove('button_is-enabled');
     }
 }
 
-/*REVIEW. Нужно лучше. Не нужно задавать переменным, или параметрам, имена input, submit. Это может ввести в заблуждение сопровождающего проект.
-Надо inputElement, submitElement, чтобы сразу было ясно, что это такое. Во многих инструкциях по написанию кода js требуется обязательно вводить в
-имя переменной, хранящей DOM-элемент, окончание Element. */
-function checkInputValidity(input) {
-    let errorElem = input.parentNode.querySelector(`#${input.name}-error`);
+function checkInputValidity(inputElement) {
+    let errorElem = inputElement.parentNode.querySelector(`#${inputElement.name}-error`);
     errorElem.textContent = '';
 
-    if (!isValid(input)) {
+    if (!isValid(inputElement)) {
         errorElem.textContent = errorMessage;
-        input.style.marginBottom = '0';
+        inputElement.style.marginBottom = '0';
         errorElem.style.marginBottom = '24px';
     } else {
-        input.style.marginBottom = '';
+        inputElement.style.marginBottom = '';
         errorElem.style.marginBottom = '';
     }
 }
 
-function isValid(input) {
+function isValid(inputElement) {
     errorMessage = '';
 
-    if (input.value.length === 0) {
+    if (inputElement.value.length === 0) {
         errorMessage = errorMessages.empty;
         return false;
     }
@@ -200,15 +196,15 @@ function isValid(input) {
 поля 'link', которое может быть любым и может меняться. Нужно полю ссылки задать тип 'url' и проверять какой у поля тип. К 8-му заданию это
 обязательно надо сделать, так как в нём грубое нарушение принципов ООП будет недопустимо.
  */
-    if (input.getAttribute('name') !== 'link') {
-        if (input.value.length < MIN_STRING_LENGTH || input.value.length > MAX_STRING_LENGTH) {
+    if (inputElement.getAttribute('name') !== 'link') {
+        if (inputElement.value.length < MIN_STRING_LENGTH || inputElement.value.length > MAX_STRING_LENGTH) {
             errorMessage = errorMessages.wrongLength;
             return false;
         }
     }
 
-    if (input.getAttribute('name') == 'link') {
-        if (!input.value.match(regexpUrl)) {
+    if (inputElement.getAttribute('name') == 'link') {
+        if (!inputElement.value.match(regexpUrl)) {
             errorMessage = errorMessages.wrongUrl;
             return false;
         }
@@ -254,10 +250,8 @@ https://developer.mozilla.org/ru/docs/Web/API/Element/insertAdjacentElement
 1. Нужно избавиться в функции deleteCard от глобальной переменной list, сделать её независящей от конкретной размётки
 (подробности в коде deleteCard ).
 
-2. Не следует использовать атрибут style элементов, где можно обойтись и без него (подробности в коде inputHandler).
 
-3. Не нужно задавать переменным, или параметрам, имена input, submit. Надо inputElement, submitElement (подробности
-в коде checkInputValidity).
+
 
 4. Не надо использовать название поля 'link'. Нужно полю ссылки задать тип 'url' и проверять какой у поля тип (подробности в коде isValid).
 

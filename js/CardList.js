@@ -1,14 +1,17 @@
 class CardList {
     constructor(conteiner, cardList) {
-        this.conteine = conteiner;
+        this.conteiner = conteiner;
         this.cardList = cardList;
     }
 
-    addCard() {
-
+    addCard(card) {
+        this.cardList.push(card);
+        this.render();
     }
 
     render() {
-        
+        this.cardList.forEach( card => {
+            this.conteiner.appendChild(card);
+        }); 
     }
 }

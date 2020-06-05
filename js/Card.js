@@ -1,25 +1,22 @@
 class Card {
-    constructor(place) {
-        this.name = place.name;  
-        this.link = place.link;
-        this.card = null;
+    constructor(name, link) {
+        this.name = name;  
+        this.link = link;
+        //this.card = null;
         //this.remove = this.remove.bind(this);
         //this.setEventListeners();
     }
 
-    like(event) {
-        if (event.target.classList.contains('place-card__like-icon')) {
-            event.target.classList.toggle('place-card__like-icon_liked');
-        }
+    _like = (event) => {
+        event.target.classList.toggle('place-card__like-icon_liked');
     }
 
-    remove(event) {
-        const placesConteiner = document.querySelector('.places-list');
-        const card = event.target.closest('.place-card');
-        placesConteiner.removeChild(card);
+    _delete = () => {
+        this._removeEventListeners();
+        this._view.remove();
     }
 
-    create() {
+    _create() {
         const template = `
         <div class="place-card">
             <div class="place-card__image">
@@ -34,23 +31,21 @@ class Card {
         const element = document.createElement('div');
         element.insertAdjacentHTML('afterbegin', template);
 
-        const card = element.firstElementChild;
-        card.querySelector('.place-card__name').textContent =  this.name;
-        card.querySelector('.place-card__image').style.backgroundImage = `url(${this.link})`;
-        this.card = card;
-        this.setEventListeners();
-        return card;
+        this._view = element.firstElementChild;
+        this._view.querySelector('.place-card__name').textContent =  this.name;
+        this._view.querySelector('.place-card__image').style.backgroundImage = `url(${this.link})`;
+        this._setEventListeners();
+        return this._view;
     }
 
-    setEventListeners = () => {
-        this.card.querySelector('.place-card__delete-icon').addEventListener('click', this.remove);
-        this.card.querySelector('.place-card__like-icon').addEventListener('click', this.like);
-
+    _setEventListeners = () => {
+        this._view.querySelector('.place-card__delete-icon').addEventListener('click', this._delete);
+        this._view.querySelector('.place-card__like-icon').addEventListener('click', this._like);
     }
 
-    removeEventListeners () {
-
+    _removeEventListeners  = () => {
+        this._view.querySelector('.place-card__delete-icon').removeEventListener('click', this._delete);
+        this._view.querySelector('.place-card__like-icon').removeEventListener('click', this._like);
     }
-
 
 }

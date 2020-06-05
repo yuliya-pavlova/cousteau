@@ -4,14 +4,13 @@ class CardList {
         this.cardList = cardList;
     }
 
-    addCard(card) {
-        this.cardList.push(card);
-        this.render();
+    _addCard = (card) => {
+        this.conteiner.appendChild(card);
     }
 
     render() {
         this.cardList.forEach( card => {
-            this.conteiner.appendChild(card);
+            this._addCard(card);
         }); 
     }
 }

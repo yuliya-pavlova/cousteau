@@ -20,11 +20,12 @@
 // const regexpUrl = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
 // let errorMessage = '';
 
-const placesConteiner = document.querySelector('.places-list');
+const placesConteiner = document.querySelector('.places-list'); //контейнер
+
 const cards = [];
 initialCards.forEach( place => {
-    const card = new Card(place);
-    cards.push(card.create());;
+    const card = new Card(place.name, place.link);
+    cards.push(card._create());;
 });
 
 const cardList = new CardList(placesConteiner, cards);

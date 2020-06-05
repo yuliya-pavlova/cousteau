@@ -1,18 +1,12 @@
 (function() {
 // const list = document.querySelector('.places-list');
-// const openButton = document.querySelector('.user-info__button');
-// const popup = document.querySelector('.popup');
-// const closeButton = document.querySelector('.popup__close');
-// const form = document.forms.new;
+
+
 // const sendButton = document.querySelector('.popup__button');
 // const editButton = document.querySelector('.user-info__edit');
-// const popupProfile = document.querySelector('.popup-profile');
+
 // const sendProfileButton = document.querySelector('.popup-profile__button');
 // const closeButtonPopupProfile = document.querySelector('.popup-profile__close');
-// const userName = document.querySelector('.user-info__name');
-// const job = document.querySelector('.user-info__job');
-// const formProfile = document.forms.profile;
-// const popupImage = document.querySelector('.popup-image');
 // const image = document.querySelector('.popup__image');
 // const closeButtonPopupImg = document.querySelector('.popup-image__close');
 // const MIN_STRING_LENGTH = 2;
@@ -21,6 +15,27 @@
 // let errorMessage = '';
 
 const placesConteiner = document.querySelector('.places-list'); //контейнер
+const userName = document.querySelector('.user-info__name');
+const job = document.querySelector('.user-info__job');
+
+//forms
+const form = document.forms.new;
+const formProfile = document.forms.profile;
+
+
+//popupAdd
+const popupAdd = document.querySelector('.popup');
+const openButton = document.querySelector('.user-info__button');
+const closeButton = document.querySelector('.popup__close');
+const OpeningClass = 'popup_is-opened';
+
+//popupProfile
+
+const popupProfile = document.querySelector('.popup-profile');
+
+
+//popupImage
+const popupImage = document.querySelector('.popup-image');
 
 const cards = [];
 initialCards.forEach( place => {
@@ -30,6 +45,8 @@ initialCards.forEach( place => {
 
 const cardList = new CardList(placesConteiner, cards);
 cardList.render();
+
+const popupNewPlace = new FormPopup(popupAdd, openButton, closeButton, OpeningClass);
 
 // const errorMessages = {
 //     empty: 'Это обязательное поле',

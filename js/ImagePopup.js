@@ -1,0 +1,3 @@
+class ImagePopup extends Popup {
+    
+}

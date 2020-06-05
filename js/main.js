@@ -3,12 +3,12 @@
 
 
 // const sendButton = document.querySelector('.popup__button');
-// const editButton = document.querySelector('.user-info__edit');
+
 
 // const sendProfileButton = document.querySelector('.popup-profile__button');
-// const closeButtonPopupProfile = document.querySelector('.popup-profile__close');
-// const image = document.querySelector('.popup__image');
-// const closeButtonPopupImg = document.querySelector('.popup-image__close');
+
+
+
 // const MIN_STRING_LENGTH = 2;
 // const MAX_STRING_LENGTH = 30;
 // const regexpUrl = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
@@ -27,15 +27,20 @@ const formProfile = document.forms.profile;
 const popupAdd = document.querySelector('.popup');
 const openButton = document.querySelector('.user-info__button');
 const closeButton = document.querySelector('.popup__close');
-const OpeningClass = 'popup_is-opened';
+const OpeningClassPopupAdd = 'popup_is-opened';
 
 //popupProfile
-
 const popupProfile = document.querySelector('.popup-profile');
-
+const editButton = document.querySelector('.user-info__edit');
+const closeButtonPopupProfile = document.querySelector('.popup-profile__close');
+const OpeningClassPopupProfile = 'popup-profile_is-opened';
 
 //popupImage
 const popupImage = document.querySelector('.popup-image');
+const image = document.querySelector('.popup__image');
+const closeButtonPopupImg = document.querySelector('.popup-image__close');
+const OpeningClassPopupImage = 'popup-image_is-opened';
+
 
 const cards = [];
 initialCards.forEach( place => {
@@ -46,7 +51,9 @@ initialCards.forEach( place => {
 const cardList = new CardList(placesConteiner, cards);
 cardList.render();
 
-const popupNewPlace = new FormPopup(popupAdd, openButton, closeButton, OpeningClass);
+new FormPopup(popupAdd, openButton, closeButton, OpeningClassPopupAdd);
+new FormPopup(popupProfile, editButton, closeButtonPopupProfile, OpeningClassPopupProfile);
+new ImagePopup(popupImage, image, closeButtonPopupImg, OpeningClassPopupImage);
 
 // const errorMessages = {
 //     empty: 'Это обязательное поле',

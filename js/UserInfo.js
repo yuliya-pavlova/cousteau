@@ -11,7 +11,7 @@ class UserInfo {
     _setUserInfo = () => {
         this.formProfile.elements.name.value = this.userName.textContent;
         this.formProfile.elements.job.value = this.job.textContent;
-    } 
+    }
 
     _updateUserInfo = () => {
         event.preventDefault();

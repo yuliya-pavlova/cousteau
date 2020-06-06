@@ -6,7 +6,7 @@ class Popup {
         this.openButton = openButton;
         this._setEventListeners();
     }
-  
+
     _open = () => {
         this.popup.classList.add(this.OpeningClass);
     }

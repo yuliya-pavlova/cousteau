@@ -9,8 +9,8 @@ class CardList {
     }
 
     render() {
-        this.cardList.forEach( card => {
+        this.cardList.forEach(card => {
             this.addCard(card);
-        }); 
+        });
     }
 }

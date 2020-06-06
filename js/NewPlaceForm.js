@@ -10,11 +10,11 @@ class NewPlaceForm {
 
     _addNewPlace = () => {
         event.preventDefault();
-    
+
         const card = this.createObjCard();
         card.name = this.form.elements.name.value;
         card.link = this.form.elements.link.value;
-    
+
         this.cardList.addCard(card._create());
         this.form.reset();
     }

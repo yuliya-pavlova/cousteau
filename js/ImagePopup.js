@@ -9,7 +9,7 @@ class ImagePopup extends Popup {
         this._addImgToPopup(event);
         this.popup.classList.add(this.OpeningClass);
     }
-    
+
     _addImgToPopup = (event) => {
         this.popupImage.src = event.target.style.backgroundImage.slice(5, -2);
     }

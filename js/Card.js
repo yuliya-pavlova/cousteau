@@ -4,7 +4,6 @@ class Card {
         this.link = link;
         this.createImagePopup = createImagePopup;
         this.imagePopup = null;
-        //this.remove = this.remove.bind(this);
     }
 
     _like = (event) => {

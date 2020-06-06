@@ -43,19 +43,15 @@ initialCards.forEach( place => {
     cards.push(card._create());
 });
 
-const cardList = new CardList(placesConteiner, cards);
-const newPlaceForm = new NewPlaceForm(form, newPlaceFactory, cardList);
-const userInfo = new UserInfo(formProfile, userName, job);
+const formNewPlacePopup =   new FormPopup(popupAdd, closeButton, OpeningClassPopupAdd, openButton, form);
+const formPofilePopup = new FormPopup(popupProfile, closeButtonPopupProfile, OpeningClassPopupProfile, editButton, formProfile);
 
+const cardList = new CardList(placesConteiner, cards);
+const newPlaceForm = new NewPlaceForm(form, newPlaceFactory, cardList, formNewPlacePopup);
+const userInfo = new UserInfo(formProfile, userName, job, formPofilePopup);
 const formValidator = new FormValidator(form);
 const formProfileValidator = new FormValidator(formProfile);
 
-
-
-function createPopup() {
-    new FormPopup(popupAdd, closeButton, OpeningClassPopupAdd, openButton, form);
-    new FormPopup(popupProfile, closeButtonPopupProfile, OpeningClassPopupProfile, editButton, formProfile);
-}
 
 function imagePopupFactory(openButton){
     return new ImagePopup(popupImage, closeButtonPopupImg, OpeningClassPopupImage, image, openButton);
@@ -66,7 +62,7 @@ function newPlaceFactory(name, link){
 }
 
 userInfo._setUserInfo();
-cardList.render(createPopup); 
+cardList.render(); 
 
 
 

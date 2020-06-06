@@ -8,10 +8,9 @@ class CardList {
         this.conteiner.appendChild(card);
     }
 
-    render(imagePopup) {
+    render() {
         this.cardList.forEach( card => {
             this.addCard(card);
         }); 
-        imagePopup();
     }
 }

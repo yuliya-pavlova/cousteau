@@ -1,9 +1,10 @@
 class NewPlaceForm {
-    constructor(form, createObjCard, cardList, popup) {
+    constructor(form, createObjCard, cardList, popup, deleteErrors) {
         this.form = form;
         this.createObjCard = createObjCard;
         this.cardList = cardList;
         this.popup = popup;
+        this.deleteErrors = deleteErrors;
         this._setEventListeners();
     }
 
@@ -22,6 +23,7 @@ class NewPlaceForm {
         this.form.addEventListener('submit', this._addNewPlace);
         this.popup.closeButton.addEventListener('click', () => {
             this.form.reset();
+            this.deleteErrors();
         });
     }
 }

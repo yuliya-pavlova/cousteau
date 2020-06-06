@@ -1,9 +1,10 @@
 class UserInfo {
-    constructor(form, userName, job, popup) {
+    constructor(form, userName, job, popup, deleteErrors) {
         this.formProfile = form;
         this.userName = userName;
         this.job = job;
         this.popup = popup;
+        this.deleteErrors = deleteErrors;
         this._setEventListeners();
     }
 
@@ -23,6 +24,7 @@ class UserInfo {
         this.formProfile.addEventListener('submit', this._updateUserInfo);
         this.popup.closeButton.addEventListener('click', () => {
             this.formProfile.reset();
+            this.deleteErrors();
             this._setUserInfo();
         });
     }

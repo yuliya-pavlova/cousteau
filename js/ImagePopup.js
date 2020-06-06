@@ -1,8 +1,8 @@
 class ImagePopup extends Popup {
-    constructor(popup, closeButton, OpeningClass, popupImage) {
-        super(popup, closeButton, OpeningClass, document.querySelector('.place-card__image'));
+    constructor(popup, closeButton, OpeningClass, popupImage, openButton) {
+        super(popup, closeButton, OpeningClass, openButton);
         this.popupImage = popupImage;
-        this.cardImage = document.querySelector('.place-card__image');
+        //this.cardImage = null;
         this._setEventListeners();
     }
 
@@ -10,14 +10,19 @@ class ImagePopup extends Popup {
         this._addImgToPopup(event);
         this.popup.classList.add(this.OpeningClass);
     }
-
+    
     _addImgToPopup = (event) => {
-        //const link = event.target.dataset.link;
         this.popupImage.src = event.target.style.backgroundImage.slice(5, -2);
+        //const link = event.target.dataset.link;
         //this.popupImage.setAttribute('src' , `${link}`);
     }
     _setEventListeners = () => {
-        this.cardImage.addEventListener('click', this._open);
+        this.openButton.addEventListener('click', this._open);
         this.closeButton.addEventListener('click', this._close);
+    }
+
+    _removeEventListeners = () => {
+        this.openButton.removeEventListener('click', this._open);
+        this.closeButton.removeEventListener('click', this._close);
     }
 }

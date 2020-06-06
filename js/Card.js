@@ -1,18 +1,20 @@
 class Card {
-    constructor(name, link) {
+    constructor(name, link, createImagePopup) {
         this.name = name;  
         this.link = link;
-        this.openPopup = null;
+        this.createImagePopup = createImagePopup;
+        this.imagePopup = null;
         //this.remove = this.remove.bind(this);
-        
     }
 
     _like = (event) => {
         event.target.classList.toggle('place-card__like-icon_liked');
     }
 
-    _delete = () => {
+    _delete = (event) => {
+        event.stopPropagation();
         this._removeEventListeners();
+        this.imagePopup._removeEventListeners();
         this._view.remove();
     }
 
@@ -35,6 +37,7 @@ class Card {
         this._view.querySelector('.place-card__name').textContent =  this.name;
         this._view.querySelector('.place-card__image').style.backgroundImage = `url(${this.link})`;
         
+        this.imagePopup = this.createImagePopup(this._view.querySelector('.place-card__image'));
         this._setEventListeners();
         return this._view;
     }
@@ -48,5 +51,4 @@ class Card {
         this._view.querySelector('.place-card__delete-icon').removeEventListener('click', this._delete);
         this._view.querySelector('.place-card__like-icon').removeEventListener('click', this._like);
     }
-
 }

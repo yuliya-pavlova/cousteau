@@ -1,10 +1,7 @@
 (function() {
 // const sendButton = document.querySelector('.popup__button');
 
-
 // const sendProfileButton = document.querySelector('.popup-profile__button');
-
-
 
 // const MIN_STRING_LENGTH = 2;
 // const MAX_STRING_LENGTH = 30;
@@ -12,13 +9,14 @@
 // let errorMessage = '';
 
 const placesConteiner = document.querySelector('.places-list'); //контейнер
-const userName = document.querySelector('.user-info__name');
-const job = document.querySelector('.user-info__job');
 
 //forms
 const form = document.forms.new;
-const formProfile = document.forms.profile;
 
+//formProfile
+const formProfile = document.forms.profile;
+const userName = document.querySelector('.user-info__name');
+const job = document.querySelector('.user-info__job');
 
 //popupAdd
 const popupAdd = document.querySelector('.popup');
@@ -41,18 +39,26 @@ const OpeningClassPopupImage = 'popup-image_is-opened';
 
 const cards = [];
 initialCards.forEach( place => {
-    const card = new Card(place.name, place.link);
+    const card = new Card(place.name, place.link, imagePopupFactory);
     cards.push(card._create());
 });
 
+function imagePopupFactory(openButton){
+    return new ImagePopup(popupImage, closeButtonPopupImg, OpeningClassPopupImage, image, openButton);
+}
+
+const userInfo = new UserInfo(formProfile, userName, job);
+userInfo._setUserInfo();
+
 function createPopup() {
-    new FormPopup(popupAdd, closeButton, OpeningClassPopupAdd, openButton);
-    new FormPopup(popupProfile, closeButtonPopupProfile, OpeningClassPopupProfile, editButton);
-    new ImagePopup(popupImage, closeButtonPopupImg, OpeningClassPopupImage, image);
+    new FormPopup(popupAdd, closeButton, OpeningClassPopupAdd, openButton, form);
+    new FormPopup(popupProfile, closeButtonPopupProfile, OpeningClassPopupProfile, editButton, formProfile);
+    //new ImagePopup(popupImage, closeButtonPopupImg, OpeningClassPopupImage, image);
 }
 
 const cardList = new CardList(placesConteiner, cards);
 cardList.render(createPopup); 
+
 
 
 // const errorMessages = {

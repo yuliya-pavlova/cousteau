@@ -2,7 +2,6 @@ class ImagePopup extends Popup {
     constructor(popup, closeButton, OpeningClass, popupImage, openButton) {
         super(popup, closeButton, OpeningClass, openButton);
         this.popupImage = popupImage;
-        //this.cardImage = null;
         this._setEventListeners();
     }
 
@@ -13,8 +12,6 @@ class ImagePopup extends Popup {
     
     _addImgToPopup = (event) => {
         this.popupImage.src = event.target.style.backgroundImage.slice(5, -2);
-        //const link = event.target.dataset.link;
-        //this.popupImage.setAttribute('src' , `${link}`);
     }
     _setEventListeners = () => {
         this.openButton.addEventListener('click', this._open);

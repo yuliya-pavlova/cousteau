@@ -43,9 +43,7 @@ initialCards.forEach( place => {
     cards.push(card._create());
 });
 
-function imagePopupFactory(openButton){
-    return new ImagePopup(popupImage, closeButtonPopupImg, OpeningClassPopupImage, image, openButton);
-}
+
 
 const userInfo = new UserInfo(formProfile, userName, job);
 userInfo._setUserInfo();
@@ -53,13 +51,28 @@ userInfo._setUserInfo();
 function createPopup() {
     new FormPopup(popupAdd, closeButton, OpeningClassPopupAdd, openButton, form);
     new FormPopup(popupProfile, closeButtonPopupProfile, OpeningClassPopupProfile, editButton, formProfile);
-    //new ImagePopup(popupImage, closeButtonPopupImg, OpeningClassPopupImage, image);
 }
 
 const cardList = new CardList(placesConteiner, cards);
 cardList.render(createPopup); 
 
 
+function imagePopupFactory(openButton){
+    return new ImagePopup(popupImage, closeButtonPopupImg, OpeningClassPopupImage, image, openButton);
+}
+
+addNewPlace = () => {
+    event.preventDefault();
+
+    const name = form.elements.name.value;
+    const link = form.elements.link.value;
+
+    const card = new Card(name, link, imagePopupFactory);
+    cardList.addCard(card._create());
+}
+
+
+form.addEventListener('submit', addNewPlace);
 
 // const errorMessages = {
 //     empty: 'Это обязательное поле',

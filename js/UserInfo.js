@@ -16,7 +16,6 @@ class UserInfo {
 
         this.userName.textContent = this.formProfile.elements.name.value;
         this.job.textContent = this.formProfile.elements.job.value;
-
     }
 
     _setEventListeners = () => {

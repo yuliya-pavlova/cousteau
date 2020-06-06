@@ -43,17 +43,19 @@ initialCards.forEach( place => {
     cards.push(card._create());
 });
 
+const cardList = new CardList(placesConteiner, cards);
+const newPlaceForm = new NewPlaceForm(form, newPlaceFactory, cardList);
 const userInfo = new UserInfo(formProfile, userName, job);
-userInfo._setUserInfo();
+
+const formValidator = new FormValidator(form);
+const formProfileValidator = new FormValidator(formProfile);
+
+
 
 function createPopup() {
     new FormPopup(popupAdd, closeButton, OpeningClassPopupAdd, openButton, form);
     new FormPopup(popupProfile, closeButtonPopupProfile, OpeningClassPopupProfile, editButton, formProfile);
 }
-
-const cardList = new CardList(placesConteiner, cards);
-cardList.render(createPopup); 
-
 
 function imagePopupFactory(openButton){
     return new ImagePopup(popupImage, closeButtonPopupImg, OpeningClassPopupImage, image, openButton);
@@ -63,50 +65,10 @@ function newPlaceFactory(name, link){
     return new Card(name, link, imagePopupFactory);
 }
 
-const newPlaceForm = new NewPlaceForm(form, newPlaceFactory, cardList);
-
-const formValidator = new FormValidator(form);
-const formProfileValidator = new FormValidator(formProfile);
-
-// const errorMessages = {
-//     empty: 'Это обязательное поле',
-//     wrongLength: 'Должно быть от 2 до 30 символов',
-//     wrongUrl: 'Здесь должна быть ссылка'
-// };
+userInfo._setUserInfo();
+cardList.render(createPopup); 
 
 
-// function createCard(name, link) {
-//     const template = `
-//     <div class="place-card">
-//         <div class="place-card__image">
-//             <button class="place-card__delete-icon"></button>
-//         </div>
-//         <div class="place-card__description">
-//             <h3 class="place-card__name"></h3>
-//             <button class="place-card__like-icon"></button>
-//         </div>
-//     </div>
-//     `;
-//     const element = document.createElement('div');
-//     element.insertAdjacentHTML('afterbegin', template);
-
-//     const card = element.firstElementChild;
-//     card.querySelector('.place-card__name').textContent = name;
-//     card.querySelector('.place-card__image').style.backgroundImage = `url(${link})`;
-
-//     return card;
-// }
-
-// function addPlaceToList(place) {
-//     list.appendChild(place);
-// }
-
-// function createPlaces() {
-//     initialCards.forEach(function (place) {
-//         const newPlace = createCard(place.name, place.link);
-//         addPlaceToList(newPlace);
-//     });
-// }
 
 // function openForm() {
 //     popup.classList.add('popup_is-opened');

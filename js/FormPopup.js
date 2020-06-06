@@ -9,5 +9,9 @@ class FormPopup extends Popup {
         this.form.addEventListener('submit', () => {
             this._close();
         });
+        
+        this.form.addEventListener('submit', () => {
+            this._close();
+        });
     }
 }

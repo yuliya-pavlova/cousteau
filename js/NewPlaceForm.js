@@ -14,6 +14,7 @@ class NewPlaceForm {
         card.link = this.form.elements.link.value;
     
         this.cardList.addCard(card._create());
+        this.form.reset();
     }
 
     _setEventListeners = () => {

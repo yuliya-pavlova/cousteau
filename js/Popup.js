@@ -1,9 +1,9 @@
 class Popup {
-    constructor(popup, openButton, closeButton, OpeningClass) {
+    constructor(popup, closeButton, OpeningClass, openButton) {
         this.popup = popup;
-        this.openButton = openButton;
         this.closeButton = closeButton;
         this.OpeningClass = OpeningClass;
+        this.openButton = openButton;
         this._setEventListeners();
     }
   

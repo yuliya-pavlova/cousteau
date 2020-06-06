@@ -1,7 +1,4 @@
 (function() {
-// const list = document.querySelector('.places-list');
-
-
 // const sendButton = document.querySelector('.popup__button');
 
 
@@ -45,15 +42,18 @@ const OpeningClassPopupImage = 'popup-image_is-opened';
 const cards = [];
 initialCards.forEach( place => {
     const card = new Card(place.name, place.link);
-    cards.push(card._create());;
+    cards.push(card._create());
 });
 
-const cardList = new CardList(placesConteiner, cards);
-cardList.render();
+function createPopup() {
+    new FormPopup(popupAdd, closeButton, OpeningClassPopupAdd, openButton);
+    new FormPopup(popupProfile, closeButtonPopupProfile, OpeningClassPopupProfile, editButton);
+    new ImagePopup(popupImage, closeButtonPopupImg, OpeningClassPopupImage, image);
+}
 
-new FormPopup(popupAdd, openButton, closeButton, OpeningClassPopupAdd);
-new FormPopup(popupProfile, editButton, closeButtonPopupProfile, OpeningClassPopupProfile);
-new ImagePopup(popupImage, image, closeButtonPopupImg, OpeningClassPopupImage);
+const cardList = new CardList(placesConteiner, cards);
+cardList.render(createPopup); 
+
 
 // const errorMessages = {
 //     empty: 'Это обязательное поле',
@@ -144,21 +144,7 @@ new ImagePopup(popupImage, image, closeButtonPopupImg, OpeningClassPopupImage);
 //     closeForm();
 // }
 
-// function deleteCard(event) {
-//     if (event.target.classList.contains('place-card__delete-icon')) {
-//         const card = event.target.closest('.place-card');
-//     /*REVIEW. Нужно лучше. Нужно избавиться в функции deleteCard от глобальной переменной list, сделать её независящей от конкретной размётки.
-//      К 8-му заданию это обязательно надо сделать, так как в нём это будет обязательным требованием.
-//     */
-//         list.removeChild(card);
-//     }
-// }
 
-// function likeHandler(event) {
-//     if (event.target.classList.contains('place-card__like-icon')) {
-//         event.target.classList.toggle('place-card__like-icon_liked');
-//     }
-// }
 
 // function editForm() {
 //     formProfile.reset();

@@ -1,6 +1,6 @@
 class FormPopup extends Popup {
-    constructor(popup, openButton, closeButton, OpeningClass) {
-        super(popup, openButton, closeButton, OpeningClass);
+    constructor(popup, closeButton, OpeningClass, openButton) {
+        super(popup, closeButton, OpeningClass, openButton);
     }
 
 }

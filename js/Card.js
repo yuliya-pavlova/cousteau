@@ -2,9 +2,9 @@ class Card {
     constructor(name, link) {
         this.name = name;  
         this.link = link;
-        //this.card = null;
+        this.openPopup = null;
         //this.remove = this.remove.bind(this);
-        //this.setEventListeners();
+        
     }
 
     _like = (event) => {
@@ -34,6 +34,7 @@ class Card {
         this._view = element.firstElementChild;
         this._view.querySelector('.place-card__name').textContent =  this.name;
         this._view.querySelector('.place-card__image').style.backgroundImage = `url(${this.link})`;
+        
         this._setEventListeners();
         return this._view;
     }

@@ -1,7 +1,7 @@
 (function() {
 const placesConteiner = document.querySelector('.places-list'); //контейнер
 
-//forms
+//formNewPlace
 const form = document.forms.new;
 
 //formProfile

@@ -13,11 +13,6 @@ class ImagePopup extends Popup {
     _addImgToPopup = (event) => {
         this.popupImage.src = event.target.style.backgroundImage.slice(5, -2);
     }
-    _setEventListeners = () => {
-        this.openButton.addEventListener('click', this._open);
-        this.closeButton.addEventListener('click', this._close);
-    }
-
     _removeEventListeners = () => {
         this.openButton.removeEventListener('click', this._open);
         this.closeButton.removeEventListener('click', this._close);

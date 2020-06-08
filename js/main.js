@@ -9,7 +9,7 @@
     const userName = document.querySelector('.user-info__name');
     const job = document.querySelector('.user-info__job');
 
-    //popupAdd
+    //popupAddPlace
     const popupAdd = document.querySelector('.popup');
     const openButton = document.querySelector('.user-info__button');
     const closeButton = document.querySelector('.popup__close');

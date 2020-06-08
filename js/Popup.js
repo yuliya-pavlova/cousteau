@@ -14,7 +14,7 @@ class Popup {
         this.openingClass = openingClass;
     }
 
-    _open = () => {
+    _open() {
         this.popup.classList.add(this.openingClass);
     }
 

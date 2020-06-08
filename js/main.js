@@ -13,22 +13,22 @@
     const popupAdd = document.querySelector('.popup');
     const openButton = document.querySelector('.user-info__button');
     const closeButton = document.querySelector('.popup__close');
-    const OpeningClassPopupAdd = 'popup_is-opened';
+    const openingClassPopupAdd = 'popup_is-opened';
 
     //popupProfile
     const popupProfile = document.querySelector('.popup-profile');
     const editButton = document.querySelector('.user-info__edit');
     const closeButtonPopupProfile = document.querySelector('.popup-profile__close');
-    const OpeningClassPopupProfile = 'popup-profile_is-opened';
+    const openingClassPopupProfile = 'popup-profile_is-opened';
 
     //popupImage
     const popupImage = document.querySelector('.popup-image');
     const image = document.querySelector('.popup__image');
     const closeButtonPopupImg = document.querySelector('.popup-image__close');
-    const OpeningClassPopupImage = 'popup-image_is-opened';
+    const openingClassPopupImage = 'popup-image_is-opened';
 
-    function imagePopupFactory(openButton) {
-        return new ImagePopup(popupImage, closeButtonPopupImg, OpeningClassPopupImage, image, openButton);
+    function imagePopupFactory() {
+        return new ImagePopup(popupImage, openingClassPopupImage, image);
     }
 
     function newPlaceFactory(name, link) {
@@ -47,8 +47,8 @@
     });
 
     //const popup = new Popup(popupAdd, closeButton, OpeningClassPopupAdd, openButton, form);
-    const formNewPlacePopup = new FormPopup(popupAdd, OpeningClassPopupAdd, form);
-    const formPofilePopup = new FormPopup(popupProfile, OpeningClassPopupProfile, formProfile);
+    const formNewPlacePopup = new FormPopup(popupAdd, openingClassPopupAdd, form);
+    const formPofilePopup = new FormPopup(popupProfile, openingClassPopupProfile, formProfile);
     const cardList = new CardList(placesConteiner, cards);
     const newPlaceForm = new NewPlaceForm(form, newPlaceFactory, cardList, formNewPlacePopup, deleteErrors);
     const userInfo = new UserInfo(formProfile, userName, job, formPofilePopup, deleteErrors);
@@ -61,6 +61,8 @@
         closeButton.addEventListener('click', formNewPlacePopup._close);
         editButton.addEventListener('click', formPofilePopup._open);
         closeButtonPopupProfile.addEventListener('click', formPofilePopup._close);
+        //closeButtonPopupImg.addEventListener('click', ._close);
+
     }
 
     userInfo._setUserInfo();

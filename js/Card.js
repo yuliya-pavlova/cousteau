@@ -13,8 +13,11 @@ class Card {
     _delete = (event) => {
         event.stopPropagation();
         this._removeEventListeners();
-        this.imagePopup._removeEventListeners();
         this._view.remove();
+    }
+
+    _showPicture = () => {
+        this.imagePopup._open(this.link);
     }
 
     _create() {
@@ -44,11 +47,13 @@ class Card {
     _setEventListeners = () => {
         this._view.querySelector('.place-card__delete-icon').addEventListener('click', this._delete);
         this._view.querySelector('.place-card__like-icon').addEventListener('click', this._like);
+        this._view.querySelector('.place-card__image').addEventListener('click', this._showPicture);
     }
 
     _removeEventListeners  = () => {
         this._view.querySelector('.place-card__delete-icon').removeEventListener('click', this._delete);
         this._view.querySelector('.place-card__like-icon').removeEventListener('click', this._like);
+        this._view.querySelector('.place-card__image').removeEventListener('click', this._showPicture);
     }
 
     // _removeEventListeners = () => {

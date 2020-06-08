@@ -17,6 +17,7 @@ class NewPlaceForm {
 
         this.cardList.addCard(card._create());
         this.form.reset();
+        this.popup._close();
     }
 
     _setEventListeners = () => {

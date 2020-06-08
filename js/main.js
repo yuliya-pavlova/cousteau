@@ -14,6 +14,7 @@
     const openButton = document.querySelector('.user-info__button');
     const closeButton = document.querySelector('.popup__close');
     const openingClassPopupAdd = 'popup_is-opened';
+    const sendButton = document.querySelector('.popup__button');
 
     //popupProfile
     const popupProfile = document.querySelector('.popup-profile');
@@ -46,9 +47,8 @@
         cards.push(card._create());
     });
 
-    //const popup = new Popup(popupAdd, closeButton, OpeningClassPopupAdd, openButton, form);
-    const formNewPlacePopup = new FormPopup(popupAdd, openingClassPopupAdd, form);
-    const formPofilePopup = new FormPopup(popupProfile, openingClassPopupProfile, formProfile);
+    const formNewPlacePopup = new Popup(popupAdd, openingClassPopupAdd, form);
+    const formPofilePopup = new Popup(popupProfile, openingClassPopupProfile, formProfile);
     const cardList = new CardList(placesConteiner, cards);
     const newPlaceForm = new NewPlaceForm(form, newPlaceFactory, cardList, formNewPlacePopup, deleteErrors);
     const userInfo = new UserInfo(formProfile, userName, job, formPofilePopup, deleteErrors);
@@ -56,7 +56,12 @@
     const formProfileValidator = new FormValidator(formProfile);
 
     setEventListeners = () => {
-        openButton.addEventListener('click', formNewPlacePopup._open.bind(formNewPlacePopup));
+        openButton.addEventListener('click', () => {
+            formNewPlacePopup._open.call(formNewPlacePopup);
+            sendButton.setAttribute('disabled', true);
+            sendButton.classList.add('button_is-disabled');
+            sendButton.classList.remove('button_is-enabled');
+        });
         closeButton.addEventListener('click', () => {
             formNewPlacePopup._close.call(formNewPlacePopup);
             form.reset();
@@ -69,10 +74,6 @@
             deleteErrors();
             userInfo._setUserInfo();
         });
-        // formProfile.addEventListener('submit', () => {
-        //     formNewPlacePopup._close.call(formNewPlacePopup);
-        //     userInfo._setUserInfo();
-        // });
     }
 
     userInfo._setUserInfo();
@@ -99,7 +100,7 @@
  (подробные комментарии в файле класса ImagePopup).
 
 3. Класс FormPopup, если он вообще нужен, нужно откорректировать в соответствии с  коррекцией класса Popup.
-(подробный комментарий в файле класса FormPopup).
+(подробный комментарий в файле класса FormPopup). (исправлено, класс удален)
 
 4. Форма карточки при новом входе в неё после сабмита, открывается с активной кнопкой сабмита.
 Нужно в слушателе открытия этой формы делать кнопку сабмита неактивной.

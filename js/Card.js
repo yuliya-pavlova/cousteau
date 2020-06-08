@@ -6,8 +6,6 @@ class Card {
         this.imagePopup = null;
     }
 
-    static closeButtonPopupImg = document.querySelector('.popup-image__close');
-
     _like = (event) => {
         event.target.classList.toggle('place-card__like-icon_liked');
     }
@@ -54,7 +52,6 @@ class Card {
         this._view.querySelector('.place-card__delete-icon').addEventListener('click', this._delete);
         this._view.querySelector('.place-card__like-icon').addEventListener('click', this._like);
         this._view.querySelector('.place-card__image').addEventListener('click', this._showPicture);
-        Card.closeButtonPopupImg.addEventListener('click', this._closePicture);
     }
 
     _removeEventListeners  = () => {

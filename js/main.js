@@ -27,6 +27,7 @@
     const image = document.querySelector('.popup__image');
     const closeButtonPopupImg = document.querySelector('.popup-image__close');
     const openingClassPopupImage = 'popup-image_is-opened';
+    const imagePopup = new ImagePopup(popupImage, openingClassPopupImage, image);
 
     function imagePopupFactory() {
         return new ImagePopup(popupImage, openingClassPopupImage, image);
@@ -74,6 +75,7 @@
             deleteErrors();
             userInfo._setUserInfo();
         });
+        closeButtonPopupImg.addEventListener('click', imagePopup._close.bind(imagePopup));
     }
 
     userInfo._setUserInfo();
@@ -92,18 +94,18 @@
 большие изменения, не исключено, что после этого возникнут ещё критические замечания).
 
 1. Класс Popup ответственен только за всплывающие окна, за кнопки их открытия и закрытия он неответственен,
-поэтому их не надо и вводить как параметры (подробный комментарий в файле класса Popup).
+поэтому их не надо и вводить как параметры (подробный комментарий в файле класса Popup). (исправлено)
 
 2. Класс ImagePopup должен передавать в параметры класса Card обработчик события открытия большого фото, как колбэк-функцию,
 и больше ничего передавать туда не должен.
 Требуется реорганизация класса ImagePopup по всем замечаниям, которые там есть.
- (подробные комментарии в файле класса ImagePopup).
+ (подробные комментарии в файле класса ImagePopup). (исправлено)
 
 3. Класс FormPopup, если он вообще нужен, нужно откорректировать в соответствии с  коррекцией класса Popup.
 (подробный комментарий в файле класса FormPopup). (исправлено, класс удален)
 
 4. Форма карточки при новом входе в неё после сабмита, открывается с активной кнопкой сабмита.
-Нужно в слушателе открытия этой формы делать кнопку сабмита неактивной.
+Нужно в слушателе открытия этой формы делать кнопку сабмита неактивной.(исправлено)
 
 
 */

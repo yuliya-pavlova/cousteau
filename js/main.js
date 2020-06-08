@@ -55,14 +55,11 @@
     const formValidator = new FormValidator(form);
     const formProfileValidator = new FormValidator(formProfile);
 
-
     setEventListeners = () => {
-        openButton.addEventListener('click', formNewPlacePopup._open);
-        closeButton.addEventListener('click', formNewPlacePopup._close);
-        editButton.addEventListener('click', formPofilePopup._open);
-        closeButtonPopupProfile.addEventListener('click', formPofilePopup._close);
-        //closeButtonPopupImg.addEventListener('click', ._close);
-
+        openButton.addEventListener('click', formNewPlacePopup._open.bind(formNewPlacePopup));
+        closeButton.addEventListener('click', formNewPlacePopup._close.bind(formNewPlacePopup));
+        editButton.addEventListener('click', formPofilePopup._open.bind(formPofilePopup));
+        closeButtonPopupProfile.addEventListener('click', formPofilePopup._close.bind(formPofilePopup));
     }
 
     userInfo._setUserInfo();

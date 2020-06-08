@@ -6,9 +6,17 @@ class FormPopup extends Popup {
         this.form = form;
     }
 
-    _setFormEventListeners = () => {
-        this.form.addEventListener('submit', () => {
-            this._close();
-        });
-    }
+    // _close() {
+    //     closeButton.addEventListener('click', () => {
+    //         formNewPlacePopup._close.bind(formNewPlacePopup);
+    //         form.reset();
+    //         deleteErrors();
+    //     });
+    // }
+
+    // _setFormEventListeners = () => {
+    //     this.form.addEventListener('submit', () => {
+    //         this._close();
+    //     });
+    //}
 }

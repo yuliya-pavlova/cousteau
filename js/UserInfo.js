@@ -21,11 +21,9 @@ class UserInfo {
     }
 
     _setEventListeners = () => {
-        this.formProfile.addEventListener('submit', this._updateUserInfo);
-        // this.popup.closeButton.addEventListener('click', () => {
-        //     this.formProfile.reset();
-        //     this.deleteErrors();
-        //     this._setUserInfo();
-        // });
+        this.formProfile.addEventListener('submit', () => {
+            this._updateUserInfo();
+            this.popup._close();
+        });
     }
 }

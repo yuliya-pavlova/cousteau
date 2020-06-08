@@ -57,9 +57,22 @@
 
     setEventListeners = () => {
         openButton.addEventListener('click', formNewPlacePopup._open.bind(formNewPlacePopup));
-        closeButton.addEventListener('click', formNewPlacePopup._close.bind(formNewPlacePopup));
+        closeButton.addEventListener('click', () => {
+            formNewPlacePopup._close.call(formNewPlacePopup);
+            form.reset();
+            deleteErrors();
+        });
         editButton.addEventListener('click', formPofilePopup._open.bind(formPofilePopup));
-        closeButtonPopupProfile.addEventListener('click', formPofilePopup._close.bind(formPofilePopup));
+        closeButtonPopupProfile.addEventListener('click', () => {
+            formPofilePopup._close.call(formPofilePopup);
+            formProfile.reset();
+            deleteErrors();
+            userInfo._setUserInfo();
+        });
+        // formProfile.addEventListener('submit', () => {
+        //     formNewPlacePopup._close.call(formNewPlacePopup);
+        //     userInfo._setUserInfo();
+        // });
     }
 
     userInfo._setUserInfo();

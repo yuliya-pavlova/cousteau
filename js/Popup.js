@@ -5,29 +5,21 @@ class Popup {
     классе нельзя, так как добавление обработчиков на кнопки не есть задача этого класса. Добавление обработчиков событий открытия
     форм на соответствующие кнопки надо производить в точке входа проекта main.js.
     Добавление обработчиков событий закрытия всех трёх всплывающих окон также надо производить в точке входа проекта main.js,
-    добавляя эти обработчики на свои элементы крестиков.
+    добавляя эти обработчики на свои элементы крестиков. (исправлено)
 
     /*REVIEW. Надо исправить. Никакие параметры и переменные с большой буквы не называются. Называются с большой буквы только классы и функции-конструкторы.
-     */
-    constructor(popup, closeButton, OpeningClass, openButton) {
+     (исправлено)*/
+    constructor(popup, openingClass) {
         this.popup = popup;
-        this.closeButton = closeButton;
-        this.OpeningClass = OpeningClass;
-        this.openButton = openButton;
-        this._setEventListeners();
+        this.openingClass = openingClass;
     }
 
     _open = () => {
-        this.popup.classList.add(this.OpeningClass);
+        this.popup.classList.add(this.openingClass);
     }
 
     _close = () => {
-        this.popup.classList.remove(this.OpeningClass);
-    }
-
-    _setEventListeners = () => {
-        this.openButton.addEventListener('click', this._open);
-        this.closeButton.addEventListener('click', this._close);
+        this.popup.classList.remove(this.openingClass);
     }
 }
 

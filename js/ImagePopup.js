@@ -7,10 +7,9 @@ class ImagePopup extends Popup {
     удаления камрточки. В этом же классе этот обработчик должен удаляться при удалении карточки.
 
      */
-    constructor(popup, closeButton, OpeningClass, popupImage, openButton) {
-        super(popup, closeButton, OpeningClass, openButton);
+    constructor(popup, openingClass, popupImage) {
+        super(popup, openingClass);
         this.popupImage = popupImage;
-        this._setEventListeners();
     }
 
 
@@ -20,7 +19,7 @@ class ImagePopup extends Popup {
         this._addImgToPopup(event);
         /*REVIEW. Надо исправить. Нижеследующая строчка полностью повторяет код метода _open родительского класса, поэтому его тут и надо вызывать
         во избежание дублирования кода. */
-        this.popup.classList.add(this.OpeningClass);
+        this.popup.classList.add(this.openingClass);
     }
 
     _addImgToPopup = (event) => {
@@ -31,8 +30,4 @@ class ImagePopup extends Popup {
    будет удаляться в классе Card. Удалять же обработчики открытия окон форм и закрытия всех всплывающих окон ни к чему, так как они нужны на протяжении всего
    сеанса работы пользователя на сайте.
    */
-    _removeEventListeners = () => {
-        this.openButton.removeEventListener('click', this._open);
-        this.closeButton.removeEventListener('click', this._close);
-    }
 }

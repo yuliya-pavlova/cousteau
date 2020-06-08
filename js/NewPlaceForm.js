@@ -21,9 +21,9 @@ class NewPlaceForm {
 
     _setEventListeners = () => {
         this.form.addEventListener('submit', this._addNewPlace);
-        this.popup.closeButton.addEventListener('click', () => {
-            this.form.reset();
-            this.deleteErrors();
-        });
+        // this.popup.closeButton.addEventListener('click', () => {
+        //     this.form.reset();
+        //     this.deleteErrors();
+        // });
     }
 }

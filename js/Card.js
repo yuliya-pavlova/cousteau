@@ -50,4 +50,9 @@ class Card {
         this._view.querySelector('.place-card__delete-icon').removeEventListener('click', this._delete);
         this._view.querySelector('.place-card__like-icon').removeEventListener('click', this._like);
     }
+
+    // _removeEventListeners = () => {
+    //     this.openButton.removeEventListener('click', this._open);
+    //     this.closeButton.removeEventListener('click', this._close);
+    // }
 }

@@ -46,16 +46,26 @@
         cards.push(card._create());
     });
 
-    const formNewPlacePopup = new FormPopup(popupAdd, closeButton, OpeningClassPopupAdd, openButton, form);
-    const formPofilePopup = new FormPopup(popupProfile, closeButtonPopupProfile, OpeningClassPopupProfile, editButton, formProfile);
+    //const popup = new Popup(popupAdd, closeButton, OpeningClassPopupAdd, openButton, form);
+    const formNewPlacePopup = new FormPopup(popupAdd, OpeningClassPopupAdd, form);
+    const formPofilePopup = new FormPopup(popupProfile, OpeningClassPopupProfile, formProfile);
     const cardList = new CardList(placesConteiner, cards);
     const newPlaceForm = new NewPlaceForm(form, newPlaceFactory, cardList, formNewPlacePopup, deleteErrors);
     const userInfo = new UserInfo(formProfile, userName, job, formPofilePopup, deleteErrors);
     const formValidator = new FormValidator(form);
     const formProfileValidator = new FormValidator(formProfile);
 
+
+    setEventListeners = () => {
+        openButton.addEventListener('click', formNewPlacePopup._open);
+        closeButton.addEventListener('click', formNewPlacePopup._close);
+        editButton.addEventListener('click', formPofilePopup._open);
+        closeButtonPopupProfile.addEventListener('click', formPofilePopup._close);
+    }
+
     userInfo._setUserInfo();
     cardList.render();
+    this.setEventListeners();
 })();
 
 

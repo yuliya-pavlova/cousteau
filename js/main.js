@@ -31,10 +31,6 @@
     const openingClassPopupImage = 'popup-image_is-opened';
     const imagePopup = new ImagePopup(popupImage, openingClassPopupImage, image);
 
-    // function imagePopupFactory() {
-    //     return new ImagePopup(popupImage, openingClassPopupImage, image);
-    // }
-
     function newPlaceFactory(name, link) {
         const imagePopup = new ImagePopup(popupImage, openingClassPopupImage, image);
         return new Card(name, link, imagePopup._open.bind(imagePopup));

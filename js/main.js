@@ -3,11 +3,11 @@
 
     //formNewPlace
 /*REVIEW. Можно лучше. В стилевых правилах написания js-кода требуется, чтобы поиск DOM-элементов во всём проекте
-осуществлялся одним способом, например только с помощью querySelector */
-    const form = document.forms.new;
+осуществлялся одним способом, например только с помощью querySelector (исправлено)*/
+    const form = document.querySelector('.popup__form');
 
     //formProfile
-    const formProfile = document.forms.profile;
+    const formProfile = document.querySelector('.popup-profile__form');
     const userName = document.querySelector('.user-info__name');
     const job = document.querySelector('.user-info__job');
 
@@ -47,8 +47,8 @@
     const cards = [];
     initialCards.forEach(place => {
         /*REVIEW2. Нужно исправить. Нужно устранить дублирование кода. Код  new Card(place.name, place.link, imagePopupFactory) у Вас уже занесён в функцию
-        newPlaceFactory, поэтому вместо этого кода и надо вызывать newPlaceFactory(place.name, place.link).  */
-        const card = new Card(place.name, place.link, imagePopupFactory);
+        newPlaceFactory, поэтому вместо этого кода и надо вызывать newPlaceFactory(place.name, place.link). (исправлено) */
+        const card = newPlaceFactory(place.name, place.link);
         cards.push(card._create());
     });
 
@@ -56,11 +56,11 @@
     const formPofilePopup = new Popup(popupProfile, openingClassPopupProfile, formProfile);
     const cardList = new CardList(placesConteiner, cards);
      /*REVIEW2. Нужно исправить. Переменные newPlaceForm, formValidator, formProfileValidator нигде не используются, поэтому инструкции new надо
-     вызывать без присвоения чему-либо результата их работы.*/
-    const newPlaceForm = new NewPlaceForm(form, newPlaceFactory, cardList, formNewPlacePopup, deleteErrors);
+     вызывать без присвоения чему-либо результата их работы. (исправлено)*/
     const userInfo = new UserInfo(formProfile, userName, job, formPofilePopup, deleteErrors);
-    const formValidator = new FormValidator(form);
-    const formProfileValidator = new FormValidator(formProfile);
+    new NewPlaceForm(form, newPlaceFactory, cardList, formNewPlacePopup, deleteErrors);
+    new FormValidator(form);
+    new FormValidator(formProfile);
 
     setEventListeners = () => {
         openButton.addEventListener('click', () => {
@@ -121,14 +121,14 @@ REVIEW2. Резюме2.
 
 Что нужно ещё подправить.
 
-1. Устранить дублирование кода (комментарий в коде  цикла initialCards.forEach(place => {... этого файла).
+1. Устранить дублирование кода (комментарий в коде  цикла initialCards.forEach(place => {... этого файла). (исправлено)
 
-2. Не объявлять переменные newPlaceForm, formValidator, formProfileValidator, которые нигде не используются.
+2. Не объявлять переменные newPlaceForm, formValidator, formProfileValidator, которые нигде не используются. (исправлено)
 
 Что можно улучшить.
 
 1. В стилевых правилах написания js-кода требуется, чтобы поиск DOM-элементов во всём проекте осуществлялся одним способом, например
-только с помощью querySelector (комментарий в начале кода этого файла).
+только с помощью querySelector (комментарий в начале кода этого файла).  (исправлено)
 
 2. Лучше в класс Card передавать не экземпляр класса ImagePopup, а его метод открытия окна большого фото, как колбэк-функцию, чтобы эти
 классы были совсем независимы друг от друга.

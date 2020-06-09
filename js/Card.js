@@ -3,7 +3,6 @@ class Card {
         this.name = name;
         this.link = link;
         this.openImagePopup = openImagePopup;
-        //this.imagePopup = null;
     }
 
     _like = (event) => {

@@ -32,8 +32,8 @@
     const imagePopup = new ImagePopup(popupImage, openingClassPopupImage, image);
 
     function newPlaceFactory(name, link) {
-        const imagePopup = new ImagePopup(popupImage, openingClassPopupImage, image);
-        return new Card(name, link, imagePopup._open.bind(imagePopup));
+        const newImagePopup = new ImagePopup(popupImage, openingClassPopupImage, image);
+        return new Card(name, link, newImagePopup._open.bind(newImagePopup));
     }
 
     function deleteErrors() {

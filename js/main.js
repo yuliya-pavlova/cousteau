@@ -31,12 +31,13 @@
     const openingClassPopupImage = 'popup-image_is-opened';
     const imagePopup = new ImagePopup(popupImage, openingClassPopupImage, image);
 
-    function imagePopupFactory() {
-        return new ImagePopup(popupImage, openingClassPopupImage, image);
-    }
+    // function imagePopupFactory() {
+    //     return new ImagePopup(popupImage, openingClassPopupImage, image);
+    // }
 
     function newPlaceFactory(name, link) {
-        return new Card(name, link, imagePopupFactory);
+        const imagePopup = new ImagePopup(popupImage, openingClassPopupImage, image);
+        return new Card(name, link, imagePopup._open.bind(imagePopup));
     }
 
     function deleteErrors() {
@@ -131,7 +132,7 @@ REVIEW2. Резюме2.
 только с помощью querySelector (комментарий в начале кода этого файла).  (исправлено)
 
 2. Лучше в класс Card передавать не экземпляр класса ImagePopup, а его метод открытия окна большого фото, как колбэк-функцию, чтобы эти
-классы были совсем независимы друг от друга.
+классы были совсем независимы друг от друга. (исправлено)
 
 3.Лучше без особой необходимости не использовать статические свойства и методы класса, так как они нужны только тогда, когда необходимо выполнить
 какой-то метод класса без создания его экземпляра.

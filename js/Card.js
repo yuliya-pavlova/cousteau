@@ -1,9 +1,9 @@
 class Card {
-    constructor(name, link, createImagePopup) {
+    constructor(name, link, openImagePopup) {
         this.name = name;
         this.link = link;
-        this.createImagePopup = createImagePopup;
-        this.imagePopup = null;
+        this.openImagePopup = openImagePopup;
+        //this.imagePopup = null;
     }
 
     _like = (event) => {
@@ -17,11 +17,7 @@ class Card {
     }
 
     _showPicture = () => {
-        this.imagePopup._open(this.link);
-    }
-
-    _closePicture = () => {
-        this.imagePopup._close();
+        this.openImagePopup(this.link);
     }
 
     _create() {
@@ -43,7 +39,6 @@ class Card {
         this._view.querySelector('.place-card__name').textContent =  this.name;
         this._view.querySelector('.place-card__image').style.backgroundImage = `url(${this.link})`;
 
-        this.imagePopup = this.createImagePopup(this._view.querySelector('.place-card__image'));
         this._setEventListeners();
         return this._view;
     }

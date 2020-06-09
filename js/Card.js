@@ -1,6 +1,6 @@
 class Card {
     constructor(name, link, createImagePopup) {
-        this.name = name;  
+        this.name = name;
         this.link = link;
         this.createImagePopup = createImagePopup;
         this.imagePopup = null;
@@ -42,7 +42,7 @@ class Card {
         this._view = element.firstElementChild;
         this._view.querySelector('.place-card__name').textContent =  this.name;
         this._view.querySelector('.place-card__image').style.backgroundImage = `url(${this.link})`;
-        
+
         this.imagePopup = this.createImagePopup(this._view.querySelector('.place-card__image'));
         this._setEventListeners();
         return this._view;

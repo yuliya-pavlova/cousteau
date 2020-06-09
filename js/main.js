@@ -2,6 +2,8 @@
     const placesConteiner = document.querySelector('.places-list');
 
     //formNewPlace
+/*REVIEW. Можно лучше. В стилевых правилах написания js-кода требуется, чтобы поиск DOM-элементов во всём проекте
+осуществлялся одним способом, например только с помощью querySelector */
     const form = document.forms.new;
 
     //formProfile
@@ -44,6 +46,8 @@
 
     const cards = [];
     initialCards.forEach(place => {
+        /*REVIEW2. Нужно исправить. Нужно устранить дублирование кода. Код  new Card(place.name, place.link, imagePopupFactory) у Вас уже занесён в функцию
+        newPlaceFactory, поэтому вместо этого кода и надо вызывать newPlaceFactory(place.name, place.link).  */
         const card = new Card(place.name, place.link, imagePopupFactory);
         cards.push(card._create());
     });
@@ -51,6 +55,8 @@
     const formNewPlacePopup = new Popup(popupAdd, openingClassPopupAdd, form);
     const formPofilePopup = new Popup(popupProfile, openingClassPopupProfile, formProfile);
     const cardList = new CardList(placesConteiner, cards);
+     /*REVIEW2. Нужно исправить. Переменные newPlaceForm, formValidator, formProfileValidator нигде не используются, поэтому инструкции new надо
+     вызывать без присвоения чему-либо результата их работы.*/
     const newPlaceForm = new NewPlaceForm(form, newPlaceFactory, cardList, formNewPlacePopup, deleteErrors);
     const userInfo = new UserInfo(formProfile, userName, job, formPofilePopup, deleteErrors);
     const formValidator = new FormValidator(form);
@@ -106,6 +112,29 @@
 
 4. Форма карточки при новом входе в неё после сабмита, открывается с активной кнопкой сабмита.
 Нужно в слушателе открытия этой формы делать кнопку сабмита неактивной.(исправлено)
+
+_____________________________________________________________________________________________________________________________________________
+
+REVIEW2. Резюме2.
+
+После исправления ошибок, отмеченных при первой проверке, код проекта стал проще и понятнее, а это гораздо лучше, чем запутанный код.
+
+Что нужно ещё подправить.
+
+1. Устранить дублирование кода (комментарий в коде  цикла initialCards.forEach(place => {... этого файла).
+
+2. Не объявлять переменные newPlaceForm, formValidator, formProfileValidator, которые нигде не используются.
+
+Что можно улучшить.
+
+1. В стилевых правилах написания js-кода требуется, чтобы поиск DOM-элементов во всём проекте осуществлялся одним способом, например
+только с помощью querySelector (комментарий в начале кода этого файла).
+
+2. Лучше в класс Card передавать не экземпляр класса ImagePopup, а его метод открытия окна большого фото, как колбэк-функцию, чтобы эти
+классы были совсем независимы друг от друга.
+
+3.Лучше без особой необходимости не использовать статические свойства и методы класса, так как они нужны только тогда, когда необходимо выполнить
+какой-то метод класса без создания его экземпляра.
 
 
 */

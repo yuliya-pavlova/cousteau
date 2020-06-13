@@ -62,17 +62,7 @@
         })
         .catch((err) => {
             console.log(err);
-        }); 
-
-    function getUserInfo() {
-        api.getUser()
-        .then(res => {
-            userInfo._setUserInfo(res);
-        })
-        .catch((err) => {
-            console.log(err);
         });
-    }
 
     const formNewPlacePopup = new Popup(popupAdd, openingClassPopupAdd, form);
     const formPofilePopup = new Popup(popupProfile, openingClassPopupProfile, formProfile);
@@ -99,11 +89,11 @@
             formPofilePopup._close.call(formPofilePopup);
             formProfile.reset();
             deleteErrors();
-            getUserInfo(); 
+            userInfo._setUserInfo();
         });
         closeButtonPopupImg.addEventListener('click', imagePopup._close.bind(imagePopup));
     }
 
-    getUserInfo(); 
+    userInfo._setUserInfo();
     this.setEventListeners();
 })();

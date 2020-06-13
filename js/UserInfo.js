@@ -10,21 +10,31 @@ class UserInfo {
         this._setEventListeners();
     }
 
-    _setUserInfo = (data) => {
-        this.formProfile.elements.name.value = data.name;
-        this.formProfile.elements.job.value = data.about;
-        this.avatar.style.backgroundImage = `url(${data.avatar})`;
-        
-        this.userName.textContent = data.name;
-        this.job.textContent = data.about;
+    _setUserInfo = () => {
+        this.api.getUser()
+            .then(res => {
+                this.avatar.style.backgroundImage = `url(${res.avatar})`;
+                this.userName.textContent = res.name;
+                this.job.textContent = res.about;
+                this.formProfile.elements.name.value = res.name;
+                this.formProfile.elements.job.value = res.about;
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     _updateUserInfo = () => {
         event.preventDefault();
 
-        this.api.updateUser(this.formProfile.elements.name.value, this.formProfile.elements.job.value);
-        this.userName.textContent = this.formProfile.elements.name.value;
-        this.job.textContent = this.formProfile.elements.job.value;
+        this.api.updateUser(this.formProfile.elements.name.value, this.formProfile.elements.job.value)
+            .then(() => {
+                this.userName.textContent = this.formProfile.elements.name.value;
+                this.job.textContent = this.formProfile.elements.job.value;
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     _setEventListeners = () => {

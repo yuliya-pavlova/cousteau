@@ -35,7 +35,7 @@ class Card {
         element.insertAdjacentHTML('afterbegin', template);
 
         this._view = element.firstElementChild;
-        this._view.querySelector('.place-card__name').textContent =  this.name;
+        this._view.querySelector('.place-card__name').textContent = this.name;
         this._view.querySelector('.place-card__image').style.backgroundImage = `url(${this.link})`;
 
         this._setEventListeners();
@@ -48,7 +48,7 @@ class Card {
         this._view.querySelector('.place-card__image').addEventListener('click', this._showPicture);
     }
 
-    _removeEventListeners  = () => {
+    _removeEventListeners = () => {
         this._view.querySelector('.place-card__delete-icon').removeEventListener('click', this._delete);
         this._view.querySelector('.place-card__like-icon').removeEventListener('click', this._like);
         this._view.querySelector('.place-card__image').removeEventListener('click', this._showPicture);

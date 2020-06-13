@@ -29,6 +29,14 @@
     const openingClassPopupImage = 'popup-image_is-opened';
     const imagePopup = new ImagePopup(popupImage, openingClassPopupImage, image);
 
+    const config = {
+        url: 'https://praktikum.tk/cohort11/cards',
+        headers: {
+            authorization: '506783c7-3a7d-4394-94b2-0bb660f308e3',
+            'Content-Type': 'application/json'
+        }
+    }
+
     function newPlaceFactory(place) {
         return new Card(place, imagePopup.open.bind(imagePopup));
     }
@@ -38,15 +46,27 @@
         errors.forEach(error => error.textContent = '');
     }
 
+    const api = new Api(config);
     const cards = [];
-    initialCards.forEach(place => {
-        const card = newPlaceFactory(place);
-        cards.push(card._create());
-    });
+    const cardList = {};
+
+    api.getCards()
+        .then(res => {
+            res.forEach(place => {
+                const card = newPlaceFactory(place);
+                cards.push(card._create());
+            })
+        })
+        .then(() => {
+            cardList = new CardList(placesConteiner, cards).render();
+        })
+        .catch(err => {
+            console.log(err);
+        });
 
     const formNewPlacePopup = new Popup(popupAdd, openingClassPopupAdd, form);
     const formPofilePopup = new Popup(popupProfile, openingClassPopupProfile, formProfile);
-    const cardList = new CardList(placesConteiner, cards);
+    //const cardList = new CardList(placesConteiner, cards);
     const userInfo = new UserInfo(formProfile, userName, job, formPofilePopup, deleteErrors);
     new NewPlaceForm(form, newPlaceFactory, cardList, formNewPlacePopup, deleteErrors);
     new FormValidator(form);
@@ -75,6 +95,5 @@
     }
 
     userInfo._setUserInfo();
-    cardList.render();
     this.setEventListeners();
 })();

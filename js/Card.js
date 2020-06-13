@@ -1,7 +1,7 @@
 class Card {
-    constructor(objCard, openImagePopup) {
-        this.name = objCard.name;
-        this.link = objCard.link;
+    constructor(name, link, openImagePopup) {
+        this.name = name;
+        this.link = link;
         this.openImagePopup = openImagePopup;
     }
 

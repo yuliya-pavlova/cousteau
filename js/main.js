@@ -8,6 +8,7 @@
     const formProfile = document.querySelector('.popup-profile__form');
     const userName = document.querySelector('.user-info__name');
     const job = document.querySelector('.user-info__job');
+    const avatar = document.querySelector('.user-info__photo');
 
     //popupAddPlace
     const popupAdd = document.querySelector('.popup');
@@ -29,16 +30,19 @@
     const openingClassPopupImage = 'popup-image_is-opened';
     const imagePopup = new ImagePopup(popupImage, openingClassPopupImage, image);
 
+    const cards = [];
+
     const config = {
-        url: 'https://praktikum.tk/cohort11/cards',
+        url: 'https://praktikum.tk/cohort11',
         headers: {
             authorization: '506783c7-3a7d-4394-94b2-0bb660f308e3',
             'Content-Type': 'application/json'
         }
     }
+    const api = new Api(config);
 
-    function newPlaceFactory(place) {
-        return new Card(place, imagePopup.open.bind(imagePopup));
+    function newPlaceFactory(name, link) {
+        return new Card(name, link, imagePopup.open.bind(imagePopup));
     }
 
     function deleteErrors() {
@@ -46,28 +50,34 @@
         errors.forEach(error => error.textContent = '');
     }
 
-    const api = new Api(config);
-    const cards = [];
-    const cardList = {};
-
     api.getCards()
         .then(res => {
             res.forEach(place => {
-                const card = newPlaceFactory(place);
+                const card = newPlaceFactory(place.name, place.link);
                 cards.push(card._create());
             })
         })
         .then(() => {
-            cardList = new CardList(placesConteiner, cards).render();
+            new CardList(placesConteiner, cards).render();
         })
-        .catch(err => {
+        .catch((err) => {
+            console.log(err);
+        }); 
+
+    function getUserInfo() {
+        api.getUser()
+        .then(res => {
+            userInfo._setUserInfo(res);
+        })
+        .catch((err) => {
             console.log(err);
         });
+    }
 
     const formNewPlacePopup = new Popup(popupAdd, openingClassPopupAdd, form);
     const formPofilePopup = new Popup(popupProfile, openingClassPopupProfile, formProfile);
-    //const cardList = new CardList(placesConteiner, cards);
-    const userInfo = new UserInfo(formProfile, userName, job, formPofilePopup, deleteErrors);
+    const cardList = new CardList(placesConteiner, cards);
+    const userInfo = new UserInfo(formProfile, formPofilePopup, deleteErrors, avatar, api, userName, job);
     new NewPlaceForm(form, newPlaceFactory, cardList, formNewPlacePopup, deleteErrors);
     new FormValidator(form);
     new FormValidator(formProfile);
@@ -89,11 +99,11 @@
             formPofilePopup._close.call(formPofilePopup);
             formProfile.reset();
             deleteErrors();
-            userInfo._setUserInfo();
+            getUserInfo(); 
         });
         closeButtonPopupImg.addEventListener('click', imagePopup._close.bind(imagePopup));
     }
 
-    userInfo._setUserInfo();
+    getUserInfo(); 
     this.setEventListeners();
 })();

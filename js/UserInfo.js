@@ -28,7 +28,7 @@ class UserInfo {
         event.preventDefault();
 
         this.api.updateUser(this.formProfile.elements.name.value, this.formProfile.elements.job.value)
-            .then((res) => {
+            .then(res => {
                 /* (исправлено) Можно лучше: в ответ на отправку данных сервер возвращает обновленные данные, следует использовать их */
                 this.userName.textContent = res.name;
                 this.job.textContent = res.about;

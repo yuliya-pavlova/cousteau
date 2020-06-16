@@ -22,6 +22,7 @@
     const editButton = document.querySelector('.user-info__edit');
     const closeButtonPopupProfile = document.querySelector('.popup-profile__close');
     const openingClassPopupProfile = 'popup-profile_is-opened';
+    const saveButton = document.querySelector('.popup-profile__button');
 
     //popupImage
     const popupImage = document.querySelector('.popup-image');
@@ -59,13 +60,13 @@
             cardList.render(cards);
         */
         .then(res => {
-                const cards = res.map(place => newPlaceFactory(place.name, place.link)._create());
-                cardList.render(cards);
+            const cards = res.map(place => newPlaceFactory(place.name, place.link)._create());
+            cardList.render(cards);
         })
-            /* (исправлено)
-                Можно лучше: экземпляр класс CardList уже создается ниже, лучше использовать его, а 
-                карточки передавать как параметр метода render, а не конструктора
-            */
+        /* (исправлено)
+            Можно лучше: экземпляр класс CardList уже создается ниже, лучше использовать его, а 
+            карточки передавать как параметр метода render, а не конструктора
+        */
         .catch((err) => {
             console.log(err);
         });
@@ -89,7 +90,12 @@
             form.reset();
             deleteErrors();
         });
-        editButton.addEventListener('click', formPofilePopup._open.bind(formPofilePopup));
+        editButton.addEventListener('click', () => {
+            formPofilePopup._open.call(formPofilePopup);
+            saveButton.setAttribute('disabled', true);
+            saveButton.classList.add('button_is-disabled');
+            saveButton.classList.remove('button_is-enabled');
+        });
         closeButtonPopupProfile.addEventListener('click', () => {
             formPofilePopup._close.call(formPofilePopup);
             formProfile.reset();
@@ -110,7 +116,7 @@
     Надо исправить:
     - закрывать попап только если запрос на сервер выполнился успешно (исправлено)
 
-    Можно лучше: 
+    Можно лучше:
     - не разбивать на несколько then если можно без этого обойтись (исправлено)
     - проверка ответа сервера и преобразование из json
     дублируется во всех методах класса Api, лучше вынести в отдельный метод (исправлено)

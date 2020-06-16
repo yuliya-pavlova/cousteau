@@ -30,7 +30,7 @@
     const openingClassPopupImage = 'popup-image_is-opened';
     const imagePopup = new ImagePopup(popupImage, openingClassPopupImage, image);
 
-    const cards = [];
+    const cardList = new CardList(placesConteiner);
 
     const config = {
         url: 'https://praktikum.tk/cohort11',
@@ -51,22 +51,27 @@
     }
 
     api.getCards()
+        /* (исправлено)
+            Можно лучше:
+            - не разбивать на несколько then если можно без этого обойтись
+            - использовать map
+            const cards = res.forEach(place => newPlaceFactory(place.name, place.link))
+            cardList.render(cards);
+        */
         .then(res => {
-            res.forEach(place => {
-                const card = newPlaceFactory(place.name, place.link);
-                cards.push(card._create());
-            })
+                const cards = res.map(place => newPlaceFactory(place.name, place.link)._create());
+                cardList.render(cards);
         })
-        .then(() => {
-            new CardList(placesConteiner, cards).render();
-        })
+            /* (исправлено)
+                Можно лучше: экземпляр класс CardList уже создается ниже, лучше использовать его, а 
+                карточки передавать как параметр метода render, а не конструктора
+            */
         .catch((err) => {
             console.log(err);
         });
 
     const formNewPlacePopup = new Popup(popupAdd, openingClassPopupAdd, form);
     const formPofilePopup = new Popup(popupProfile, openingClassPopupProfile, formProfile);
-    const cardList = new CardList(placesConteiner, cards);
     const userInfo = new UserInfo(formProfile, formPofilePopup, deleteErrors, avatar, api, userName, job);
     new NewPlaceForm(form, newPlaceFactory, cardList, formNewPlacePopup, deleteErrors);
     new FormValidator(form);
@@ -97,3 +102,19 @@
     userInfo._setUserInfo();
     this.setEventListeners();
 })();
+
+/*
+
+    Неплохая работа, класс Api создан, запросы на сервер выполняются. Но к организации кода есть замечания:
+
+    Надо исправить:
+    - закрывать попап только если запрос на сервер выполнился успешно (исправлено)
+
+    Можно лучше: 
+    - не разбивать на несколько then если можно без этого обойтись (исправлено)
+    - проверка ответа сервера и преобразование из json
+    дублируется во всех методах класса Api, лучше вынести в отдельный метод (исправлено)
+    - при ответе сервера использовать уже созданный экземпляр класса CardList передавая данные в метод render, а не
+    создавать новый экземпляр (исправлено)
+    - в ответ на отправку данных сервер возвращает обновленные данные, следует использовать их (исправлено)
+*/

@@ -1,5 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: { main: './src/js/index.js' },
@@ -20,30 +21,27 @@ module.exports = {
             },
             {
             test: /\.css$/,
-            use: [MiniCssExtractPlugin.loader, 'css-loader']
+            use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
             },
             {
-            test: /\.(png|jpe?g|gif)$/i,
-            loader: 'file-loader',
-            options: {
-                name: '[../images][name].[ext]',
-            },
-            },
+            test: /\.(woff|woff2|ttf)$/,
+            use: 'file-loader'
+			},
             {
-            test: /\.(png|jpg|gif|ico|svg)$/,
-            use: [
-                    'file-loader?name=../images/[name].[ext]', // указали папку, куда складывать изображения
-                    {
-                        loader: 'image-webpack-loader',
-                        options: {}
-                    },
-                ]
+            test: /\.(jpg|jpeg|png|svg|webp)$/,
+            use: 'file-loader?name=./images/[name].[ext]&esModule=false'
             }
         ]
     },
-    // plugins: [
-    //     new MiniCssExtractPlugin({
-    //         filename: 'style.css'
-    //     })
-    // ]
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: 'style.css'
+        }),
+        new HtmlWebpackPlugin({ // настроили плагин
+            inject: false,
+            hash: true,
+            template: './src/index.html',
+            filename: 'index.html'
+        })
+    ]
 };

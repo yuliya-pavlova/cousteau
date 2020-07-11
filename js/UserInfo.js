@@ -10,7 +10,7 @@ class UserInfo {
         this._setEventListeners();
     }
 
-    _setUserInfo = () => {
+    setUserInfo = () => {
         this.api.getUser()
             .then(res => {
                 this.avatar.style.backgroundImage = `url(${res.avatar})`;
@@ -26,13 +26,11 @@ class UserInfo {
 
     _updateUserInfo = () => {
         event.preventDefault();
-
         this.api.updateUser(this.formProfile.elements.name.value, this.formProfile.elements.job.value)
             .then(res => {
-                /* (исправлено) Можно лучше: в ответ на отправку данных сервер возвращает обновленные данные, следует использовать их */
                 this.userName.textContent = res.name;
                 this.job.textContent = res.about;
-                this.popup._close();
+                this.popup.close();
             })
             .catch((err) => {
                 console.log(err);
@@ -42,15 +40,6 @@ class UserInfo {
     _setEventListeners = () => {
         this.formProfile.addEventListener('submit', () => {
             this._updateUserInfo();
-            /* (исправлено)
-                Надо исправить: все изменения на странице должны происходить, только после того, как
-                сервер ответил подтверждением. Если сервер не ответил, или ответил ошибкой, а
-                данные на странице сохраняться, то это может ввести пользователя в заблуждение
-
-                Попап так же нужно закрывать только если сервер ответил подтверждением, иначе
-                если запрос завершиться ошибкой, а попап закроется пользователь может подумать
-                что данные сохранились, т.е. перенести закрытие попапа в блок then
-            */
         });
     }
 }

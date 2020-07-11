@@ -19,7 +19,11 @@ class Card {
         this.openImagePopup(this.link);
     }
 
-    _create() {
+    /*
+        Надо исправить: если метод обозначен как приватный (использовано нижнее подчеркивание в начале)
+        он не должен вызываться вне класса, нужно убрать нижнее подчеркивание
+    */
+    create() {
         const template = `
         <div class="place-card">
             <div class="place-card__image">

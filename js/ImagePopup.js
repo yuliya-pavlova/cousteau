@@ -6,7 +6,7 @@ class ImagePopup extends Popup {
 
     open(link) {
         this.popupImage.src = link;
-        super._open();
+        super.open();
     }
 
 }

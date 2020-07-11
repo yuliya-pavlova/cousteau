@@ -4,11 +4,11 @@ class Popup {
         this.openingClass = openingClass;
     }
 
-    _open() {
+    open() {
         this.popup.classList.add(this.openingClass);
     }
 
-    _close = () => {
+    close = () => {
         this.popup.classList.remove(this.openingClass);
     }
 }

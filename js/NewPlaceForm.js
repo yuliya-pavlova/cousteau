@@ -13,9 +13,9 @@ class NewPlaceForm {
 
         const card = this.createObjCard(this.form.elements.name.value, this.form.elements.link.value);
 
-        this.cardList.addCard(card._create());
+        this.cardList.addCard(card.create());
         this.form.reset();
-        this.popup._close();
+        this.popup.close();
     }
 
     _setEventListeners = () => {

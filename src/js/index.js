@@ -6,6 +6,7 @@ import Popup from './Popup';
 import UserInfo from './UserInfo';
 import NewPlaceForm from './NewPlaceForm';
 import FormValidator from './FormValidator';
+//import "../pages/index.css";
 
 (function () {
     const placesConteiner = document.querySelector('.places-list');

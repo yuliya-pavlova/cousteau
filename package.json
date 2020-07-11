@@ -2,7 +2,7 @@
   "name": "mesto",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "js/index.js",
   "scripts": {
     "dev": "webpack-dev-server --mode development --open --watch",
     "build": "rimraf dist && webpack --mode production",
@@ -19,7 +19,16 @@
   },
   "homepage": "https://github.com/yuliya-pavlova/cousteau#readme",
   "devDependencies": {
+    "@babel/cli": "^7.10.4",
+    "@babel/core": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "babel-loader": "^8.1.0",
     "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "core-js": "^3.4.1"
   }
 }

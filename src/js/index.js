@@ -1,3 +1,12 @@
+import ImagePopup from './ImagePopup';
+import CardList from './CardList';
+import Card from './Card';
+import Api from './Api';
+import Popup from './Popup';
+import UserInfo from './UserInfo';
+import NewPlaceForm from './NewPlaceForm';
+import FormValidator from './FormValidator';
+
 (function () {
     const placesConteiner = document.querySelector('.places-list');
 

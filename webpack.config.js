@@ -50,13 +50,12 @@ module.exports = {
                 {
                     loader: 'image-webpack-loader',
                     options: {
-                        bypassOnDebug: true, // webpack@1.x
-                        disable: true, // webpack@2.x and newer
+                        bypassOnDebug: true,
+                        disable: true, 
                         mozjpeg: {
                             progressive: true,
                             quality: 65
                         },
-                        // optipng.enabled: false will disable optipng
                         optipng: {
                             enabled: false,
                         },
@@ -67,7 +66,6 @@ module.exports = {
                         gifsicle: {
                             interlaced: false,
                         },
-                        // the webp option will enable WEBP
                         webp: {
                             quality: 75
                         }

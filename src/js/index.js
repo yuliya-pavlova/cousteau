@@ -8,8 +8,6 @@ import "../pages/index.css";
 import ImagePopup from './ImagePopup';
 import Popup from './Popup';
 
-console.log(process.env.NODE_ENV);
-
 (function () {
     const placesConteiner = document.querySelector('.places-list');
 

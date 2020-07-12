@@ -1,3 +1,5 @@
+import Popup from './Popup';
+
 export default class ImagePopup extends Popup {
     constructor(popup, openingClass, popupImage) {
         super(popup, openingClass);
@@ -8,5 +10,4 @@ export default class ImagePopup extends Popup {
         this.popupImage.src = link;
         super.open();
     }
-
 }

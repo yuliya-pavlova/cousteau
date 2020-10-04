@@ -1,3 +1,13 @@
+import CardList from './CardList';
+import Card from './Card';
+import Api from './Api';
+import UserInfo from './UserInfo';
+import NewPlaceForm from './NewPlaceForm';
+import FormValidator from './FormValidator';
+import "../pages/index.css";
+import ImagePopup from './ImagePopup';
+import Popup from './Popup';
+
 (function () {
     const placesConteiner = document.querySelector('.places-list');
 
@@ -34,7 +44,7 @@
     const cardList = new CardList(placesConteiner);
 
     const config = {
-        url: 'https://praktikum.tk/cohort11',
+        url: NODE_ENV === 'production' ? 'https://praktikum.tk/cohort11' : 'http://praktikum.tk/cohort11',
         headers: {
             authorization: '506783c7-3a7d-4394-94b2-0bb660f308e3',
             'Content-Type': 'application/json'
@@ -53,12 +63,6 @@
 
     api.getCards()
         .then(res => {
-            /*
-                Надо исправить: если метод обозначен как приватный (использовано нижнее подчеркивание в начале)
-                он не должен вызываться вне класса, нужно убрать нижнее подчеркивание
-
-                Проверить подобное во всем проекте
-            */
             const cards = res.map(place => newPlaceFactory(place.name, place.link).create());
             cardList.render(cards);
         })
@@ -73,33 +77,32 @@
     new FormValidator(form);
     new FormValidator(formProfile);
 
-    setEventListeners = () => {
-        openButton.addEventListener('click', () => {
-            formNewPlacePopup.open.call(formNewPlacePopup);
-            sendButton.setAttribute('disabled', true);
-            sendButton.classList.add('button_is-disabled');
-            sendButton.classList.remove('button_is-enabled');
-        });
-        closeButton.addEventListener('click', () => {
-            formNewPlacePopup.close.call(formNewPlacePopup);
-            form.reset();
-            deleteErrors();
-        });
-        editButton.addEventListener('click', () => {
-            formPofilePopup.open.call(formPofilePopup);
-            saveButton.setAttribute('disabled', true);
-            saveButton.classList.add('button_is-disabled');
-            saveButton.classList.remove('button_is-enabled');
-        });
-        closeButtonPopupProfile.addEventListener('click', () => {
-            formPofilePopup.close.call(formPofilePopup);
-            formProfile.reset();
-            deleteErrors();
-            userInfo.setUserInfo();
-        });
-        closeButtonPopupImg.addEventListener('click', imagePopup.close.bind(imagePopup));
-    }
+
+    openButton.addEventListener('click', () => {
+        formNewPlacePopup.open.call(formNewPlacePopup);
+        sendButton.setAttribute('disabled', true);
+        sendButton.classList.add('button_is-disabled');
+        sendButton.classList.remove('button_is-enabled');
+    });
+    closeButton.addEventListener('click', () => {
+        formNewPlacePopup.close.call(formNewPlacePopup);
+        form.reset();
+        deleteErrors();
+    });
+    editButton.addEventListener('click', () => {
+        formPofilePopup.open.call(formPofilePopup);
+        saveButton.setAttribute('disabled', true);
+        saveButton.classList.add('button_is-disabled');
+        saveButton.classList.remove('button_is-enabled');
+    });
+    closeButtonPopupProfile.addEventListener('click', () => {
+        formPofilePopup.close.call(formPofilePopup);
+        formProfile.reset();
+        deleteErrors();
+        userInfo.setUserInfo();
+    });
+    closeButtonPopupImg.addEventListener('click', imagePopup.close.bind(imagePopup));
+
 
     userInfo.setUserInfo();
-    this.setEventListeners();
 })();

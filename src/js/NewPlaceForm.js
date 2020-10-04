@@ -1,4 +1,4 @@
-class NewPlaceForm {
+export default class NewPlaceForm {
     constructor(form, createObjCard, cardList, popup, deleteErrors) {
         this.form = form;
         this.createObjCard = createObjCard;

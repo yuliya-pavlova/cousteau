@@ -1,4 +1,4 @@
-class UserInfo {
+export default class UserInfo {
     constructor(form, popup, deleteErrors, avatar, api, userName, job) {
         this.formProfile = form;
         this.popup = popup;

@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Mesto</title>
-  <link rel="stylesheet" href="./pages/index.css">
+  <link rel="stylesheet" href="<%=htmlWebpackPlugin.files.css %>">
 </head>
 <body>
   <div class="root">
     <header class="header root__section">
-      <img src="./images/logo.svg" alt="mesto logo" class="logo">
+      <img src="<%=require('./images/logo.svg')%>" alt="mesto logo" class="logo">
     </header>
     <div class="profile root__section">
       <div class="user-info">
@@ -28,7 +28,7 @@
     </div>
     <div class="popup">
       <div class="popup__content">
-        <img src="./images/close.svg" alt="" class="popup__close">
+        <img src="<%=require('./images/close.svg')%>" alt="" class="popup__close">
         <h3 class="popup__title">Новое место</h3>
         <form class="popup__form" name="new">
             <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Название">
@@ -41,7 +41,7 @@
     </div>
     <div class="popup-profile">
       <div class="popup-profile__content">
-        <img src="./images/close.svg" alt="" class="popup-profile__close">
+        <img src="<%=require('./images/close.svg')%>" alt="" class="popup-profile__close">
         <h3 class="popup-profile__title">Редактировать профиль</h3>
         <form class="popup-profile__form" name="profile">
             <input type="text" name="name" class="popup-profile__input popup-profile__input_type_name" placeholder="Имя">
@@ -54,18 +54,10 @@
     </div>
     <div class="popup-image">
       <div class="popup-image__content">
-        <img src="./images/close.svg" alt="" class="popup-image__close">
+        <img src="<%=require('./images/close.svg')%>" alt="" class="popup-image__close">
         <img src="" alt="" class="popup__image">
       </div>
   </div>
-  <script src="js/Card.js"></script>
-  <script src="js/CardList.js"></script>
-  <script src="js/Popup.js"></script>
-  <script src="js/ImagePopup.js"></script>
-  <script src="js/UserInfo.js"></script>
-  <script src="js/FormValidator.js"></script>
-  <script src="js/NewPlaceForm.js"></script>
-  <script src="js/Api.js"></script>
-  <script src="js/main.js"></script>
+  <script src="<%= htmlWebpackPlugin.files.js %>"></script>
 </body>
 </html>
